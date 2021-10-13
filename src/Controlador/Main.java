@@ -10,17 +10,10 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-
-   
-    /*public static void main (String[] args) {
-        // TODO code application logic here
-    }*/
-    
-    
-
+ 
     @Override
     public void start(Stage primaryStage) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
         try{
             FXMLLoader loader= new FXMLLoader();
             loader.setLocation(Main.class.getResource("/Vista/EjemploVista.fxml"));
@@ -32,14 +25,12 @@ public class Main extends Application {
         } catch(IOException e){
             System.out.println("tratar error"+ e.getMessage());
         
-        }
+         }
     }
     
        public static void main(String[] args) {
         // TODO code application logic here     
         System.out.println("hola mundo desde Main_controlador");
         launch(args);            
-    }
-    
-    
+        }
 }
