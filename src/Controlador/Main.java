@@ -32,5 +32,5 @@ public class Main extends Application {
         // TODO code application logic here     
         System.out.println("hola mundo desde Main_controlador");
         launch(args);            
-        }
+       }
 }
