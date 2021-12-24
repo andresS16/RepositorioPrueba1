@@ -14,9 +14,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
+        
+       
+        
+        
         try{
             FXMLLoader loader= new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/Vista/EjemploVista.fxml"));
+            loader.setLocation(Main.class.getResource("/Vista/Usuarios.fxml"));
             Pane ventana = (Pane) loader.load();
             Scene scene = new Scene (ventana);
             primaryStage.setScene(scene);
@@ -26,6 +30,9 @@ public class Main extends Application {
             System.out.println("tratar error"+ e.getMessage());
         
          }
+        
+        
+         
     }
     
        public static void main(String[] args) {
