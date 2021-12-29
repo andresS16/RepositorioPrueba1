@@ -7,10 +7,12 @@ package Controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 
 /**
@@ -40,6 +42,16 @@ public class UsuariosAltaControlador implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          txtCorreoAltaUsuario.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCharacter().equals(" ")){
+                     t.consume();   
+                 }              
+             }                
+        });
+        
+        
         // TODO
     }    
     

@@ -21,31 +21,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-
 public class FormularioLoginControlador implements Initializable {
     @FXML
     private Button btnInisiarSesion;
     @FXML
     private Button btnRegistrarUsuario;
     @FXML
-    private StackPane contenedorFormulario;
-    
-    
-    
+    private StackPane contenedorFormulario;         
     private VBox inisioSesion;
     private VBox usuarioAlta;
     
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
+               
         try {
-            inisioSesion= cargarFormulario("/vista/Login2.fxml");
-            
+            inisioSesion= cargarFormulario("/vista/Login2.fxml");          
             usuarioAlta = cargarFormulario("/vista/UsuariosAlta.fxml");
             
             contenedorFormulario.getChildren().addAll(inisioSesion,usuarioAlta);
@@ -56,40 +46,34 @@ public class FormularioLoginControlador implements Initializable {
             Logger.getLogger(FormularioLoginControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
-
-    @FXML
-    public void iniciarSesion(ActionEvent e) {
-        
-        Object evento = e.getSource();
-        
-        if(evento.equals(btnInisiarSesion.onActionProperty())){
-            inisioSesion.setVisible(true);
-            usuarioAlta.setVisible(false);
-            
-    
-    }else if(evento.equals(btnRegistrarUsuario)){
-        
-            usuarioAlta.setVisible(true);
-            inisioSesion.setVisible(false);
-    
-    }
-    }
-
-    
+ 
     private VBox cargarFormulario(String url) throws IOException{
         
-             FXMLLoader loader= new FXMLLoader();
+        FXMLLoader loader= new FXMLLoader();
       
-            loader.setLocation(getClass().getResource(url));
-            VBox ventana = (VBox) loader.load();
+        loader.setLocation(getClass().getResource(url));
+        VBox ventana = (VBox) loader.load();
         
-      //return(VBox)FXMLLoader.load(getClass().getResource(url));
-       return ventana ;
-    
+        //return(VBox)FXMLLoader.load(getClass().getResource(url));
+        return ventana ; 
     }
 
     @FXML
-    private void registrarse(ActionEvent event) {
+    private void actionEvent(ActionEvent e) {
+        System.out.println("ENTRO EN EL METODO DEL BOTON");      
+         Object evento = e.getSource();
+        
+        if(evento.equals(btnInisiarSesion)){
+            inisioSesion.setVisible(true);
+             usuarioAlta.setVisible(false);
+              System.out.println("    ENTRO EN EL IF DE INISIO DE SESION");          
+  
+        }else if(evento.equals(btnRegistrarUsuario)){      
+            usuarioAlta.setVisible(true);
+             inisioSesion.setVisible(false);
+              System.out.println("    ENTRO EN EL IF DE alta user");
+    
+          }
     }
 
 

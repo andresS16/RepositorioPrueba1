@@ -44,11 +44,11 @@
                   <Insets left="40.0" right="40.0" />
                </padding>
                <children>
-                  <Button fx:id="btnInisiarSesion" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Iniciar sesion" textFill="#8c8461">
+                  <Button fx:id="btnInisiarSesion" mnemonicParsing="false" onAction="#actionEvent" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Iniciar sesion" textFill="#8c8461">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font></Button>
-                  <Button fx:id="btnRegistrarUsuario" mnemonicParsing="false" onAction="#registrarse" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Registrarse">
+                  <Button fx:id="btnRegistrarUsuario" mnemonicParsing="false" onAction="#actionEvent" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Registrarse">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
