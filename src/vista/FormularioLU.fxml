@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FormularioLoginControlador">
+  <columnConstraints>
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="10.0" percentWidth="40.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="-Infinity" minWidth="10.0" percentWidth="60.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <VBox alignment="CENTER" prefHeight="422.0" prefWidth="320.0" style="-fx-background-color: #E5E2D7; -fx-border-color: white;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <Label text="Bienvenidos al sistema de .." textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="40.0" right="40.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="¿ Estas registrado?" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+               <children>
+                  <Button fx:id="btnInisiarSesion" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Iniciar sesion" textFill="#8c8461">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
+                  <Button fx:id="btnRegistrarUsuario" mnemonicParsing="false" onAction="#registrarse" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: white; -fx-border-color: #8c8461; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Registrarse">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <StackPane fx:id="contenedorFormulario" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+   </children>
+</GridPane>
