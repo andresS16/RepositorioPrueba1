@@ -50,7 +50,7 @@ public class LoguinControlador implements Initializable {
     private void agregarUsuario(ActionEvent event) {
         String usuario = txtUsuario.getText().trim();
         String contraseña=txtPass.getText().trim();
-             System.out.println("datos ingresados "+ usuario +","+ contraseña);   
+             System.out.println("datos ingresados "+ usuario + ","+ contraseña);   
              
         if(usuario.equals("")|| contraseña.equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);

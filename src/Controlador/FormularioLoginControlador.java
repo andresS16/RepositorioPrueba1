@@ -61,12 +61,13 @@ public class FormularioLoginControlador implements Initializable {
     @FXML
     private void actionEvent(ActionEvent e) {
         System.out.println("ENTRO EN EL METODO DEL BOTON");      
-         Object evento = e.getSource();
+         Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         
-        if(evento.equals(btnInisiarSesion)){
+        if(evento.equals(btnInisiarSesion)){//se aplica condicional para saber que boton se acciono
             inisioSesion.setVisible(true);
              usuarioAlta.setVisible(false);
-              System.out.println("    ENTRO EN EL IF DE INISIO DE SESION");          
+                System.out.println("    ENTRO EN EL IF DE INISIO DE SESION");        
+              
   
         }else if(evento.equals(btnRegistrarUsuario)){      
             usuarioAlta.setVisible(true);

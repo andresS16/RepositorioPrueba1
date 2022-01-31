@@ -43,17 +43,23 @@ public class Login2Controlador implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
          maskPass(txtPasswordIniSesion,txtPasswordIniSesionMask,chcMostrarContrseña);
         
-       txtUsuarioInSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){
+       txtUsuarioInSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){// no permite espacios en blanco
             @Override
             public void handle(KeyEvent t) {
                 if(t.getCharacter().equals(" ")){
-                     t.consume();   
+                     t.consume();   //se detiene el evento
                  }              
              }                
-        });
-        
+        });    
        
-       
+       txtPasswordIniSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCharacter().equals(" ")){
+                     t.consume();   //se detiene el evento
+                 }              
+             }                
+        }); 
     }    
 
     @FXML
@@ -64,12 +70,14 @@ public class Login2Controlador implements Initializable {
     private void limpiar(ActionEvent event) {
     }
     
-    public void maskPass(PasswordField pass,TextField texto,CheckBox check){
+    public void maskPass(PasswordField pass,TextField texto,CheckBox check){// 26.Curso de javafx formulario de registro e inicio de sesion
         texto.setVisible(false);
         texto.setManaged(false);
         
         texto.managedProperty().bind(check.selectedProperty());
         texto.visibleProperty().bind(check.selectedProperty());
+        
+        texto.textProperty().bindBidirectional(pass.textProperty());// se conectan los elementos ..el chex con el campo de texto
     
     }
 
