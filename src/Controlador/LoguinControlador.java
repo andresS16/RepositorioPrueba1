@@ -52,7 +52,7 @@ public class LoguinControlador implements Initializable {
         String contraseña=txtPass.getText().trim();
              System.out.println("datos ingresados "+ usuario + ","+ contraseña);   
              
-        if(usuario.equals("")|| contraseña.equals("")){
+        if(usuario.equals(" ")|| contraseña.equals("")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("ERROR");

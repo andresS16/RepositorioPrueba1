@@ -1,7 +1,10 @@
 
 package Controlador;
 
+import Modelo.Usuario;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -43,7 +47,7 @@ public class Login2Controlador implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
          maskPass(txtPasswordIniSesion,txtPasswordIniSesionMask,chcMostrarContrseña);
         
-       txtUsuarioInSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){// no permite espacios en blanco
+         txtUsuarioInSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){// no permite espacios en blanco
             @Override
             public void handle(KeyEvent t) {
                 if(t.getCharacter().equals(" ")){
@@ -52,33 +56,25 @@ public class Login2Controlador implements Initializable {
              }                
         });    
        
-       txtPasswordIniSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent t) {
-                if(t.getCharacter().equals(" ")){
+         txtPasswordIniSesion.addEventFilter(KeyEvent.KEY_TYPED,new EventHandler<KeyEvent>(){
+         @Override
+         public void handle(KeyEvent t) {
+             if(t.getCharacter().equals(" ")){
                      t.consume();   //se detiene el evento
-                 }              
-             }                
+               }              
+           }                
         }); 
     }    
 
-    @FXML
-    private void ingresar(ActionEvent event) {
-    }
-
-    @FXML
-    private void limpiar(ActionEvent event) {
-    }
     
     public void maskPass(PasswordField pass,TextField texto,CheckBox check){// 26.Curso de javafx formulario de registro e inicio de sesion
+        
         texto.setVisible(false);
         texto.setManaged(false);
         
         texto.managedProperty().bind(check.selectedProperty());
-        texto.visibleProperty().bind(check.selectedProperty());
-        
-        texto.textProperty().bindBidirectional(pass.textProperty());// se conectan los elementos ..el chex con el campo de texto
-    
+        texto.visibleProperty().bind(check.selectedProperty());       
+        texto.textProperty().bindBidirectional(pass.textProperty());// se conectan los elementos ..el chex con el campo de texto   
     }
 
    /* @FXML
@@ -89,6 +85,64 @@ public class Login2Controlador implements Initializable {
             e.consume();   
         }                    
     }*/
+    public void limpiarCampos(){
+        txtUsuarioInSesion.setText("");
+        txtPasswordIniSesion.setText("");
+        chcMostrarContrseña.setAccessibleHelp("");
+          
+    }
+
+    @FXML
+    private void actionEvent(ActionEvent e) {
+        
+        Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
+        Usuario usuario= new Usuario();
+         
+         if(btnIngresar.equals(evento)){//String query ="SELECT * FROM profesor4 WHERE id = " + idBusqueda;...String query = "SELECT * FROM profesor4 WHERE apellido LIKE '%" + apellidoBusqueda + "%'";
+             
+             if(!txtUsuarioInSesion.getText().isEmpty() && !txtPasswordIniSesion.getText().isEmpty()){
+                                 
+                 String nomUser=txtUsuarioInSesion.getText();
+                 String passContr=txtPasswordIniSesion.getText();//SELECT usuario,cast(aes_decrypt(pass,'key')AS CHAR) AS pass FROM usuario ;
+                 //String query = "SELECT pass,cast(aes_decrypt(pass,'A12') as char) from usuario WHERE usuario='"+nomUser+"'";
+                  
+                 String query ="SELECT usuario,cast(aes_decrypt(pass,'AB12')AS CHAR) AS pass FROM usuario WHERE usuario='"+nomUser+"' " ;
+                 TransaccionesBD trscns = new TransaccionesBD();  
+             
+                 ResultSet rs = trscns.realizarConsulta(query);                    
+                   //JOptionPane.showMessageDialog(null,"paso la consulta " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
+                  
+                    try{
+                            
+                        if(rs.next()){
+                                
+                            JOptionPane.showMessageDialog(null,"entro al IF" ,"aviso " , JOptionPane.INFORMATION_MESSAGE);
+                             
+                             usuario.setUsuario(rs.getString("usuario"));                                
+                             usuario.setPassword(rs.getString("pass"));                                 
+                              //String contraseña= rs.getString("pass");
+                             System.out.println(" usuario "+ usuario.getUsuario());
+                             System.out.println(" password "+ usuario.getPassword());
+                                  
+                                 if(usuario.getPassword().equals(passContr)){
+                                    JOptionPane.showMessageDialog(null,"Bienvenido " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+
+                                  }else{
+                                      JOptionPane.showMessageDialog(null,"El usuario o contraseña no existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                                    }                                                                                      
+                                 }           
+                       }catch(Exception ex){
+                                JOptionPane.showMessageDialog(null,"error al buscar usuario " + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+                         }
+                                                     
+               }
+         
+         
+         }else if(btnLimpiar.equals(evento)){
+           limpiarCampos();
+         }
+        
+    }
 
     
 }

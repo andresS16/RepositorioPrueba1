@@ -9,7 +9,7 @@ package Modelo;
  *
  * @author Silva
  */
-public class Usuarios {
+public class Usuario {
     private Long id ;
     private String correo;
     private String usuario;
@@ -17,7 +17,7 @@ public class Usuarios {
     private int activo;
     private String password;
 
-    public Usuarios(Long id, String correo, String usuario, int privilegio, int activo, String password) {
+    public Usuario(Long id, String correo, String usuario, int privilegio, int activo, String password) {
         this.id = id;
         this.correo = correo;
         this.usuario = usuario;
@@ -26,13 +26,13 @@ public class Usuarios {
         this.password = password;
     }
 
-    public Usuarios(String correo, String usuario, String password) {
+    public Usuario(String correo, String usuario, String password) {
         this.correo = correo;
         this.usuario = usuario;
         this.password = password;
     }
 
-    public Usuarios() {
+    public Usuario() {
     }
 
     public Long getId() {
@@ -81,6 +81,11 @@ public class Usuarios {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "usuario=" + usuario + ", password=" + password + '}';
     }
     
     
