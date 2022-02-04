@@ -6,6 +6,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -91,9 +93,11 @@ public class Login2Controlador implements Initializable {
         chcMostrarContrseña.setAccessibleHelp("");
           
     }
+  
 
     @FXML
     private void actionEvent(ActionEvent e) {
+        
         
         Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         Usuario usuario= new Usuario();
@@ -117,6 +121,7 @@ public class Login2Controlador implements Initializable {
                         if(rs.next()){
                                 
                             JOptionPane.showMessageDialog(null,"entro al IF" ,"aviso " , JOptionPane.INFORMATION_MESSAGE);
+                           
                              
                              usuario.setUsuario(rs.getString("usuario"));                                
                              usuario.setPassword(rs.getString("pass"));                                 
@@ -128,9 +133,13 @@ public class Login2Controlador implements Initializable {
                                     JOptionPane.showMessageDialog(null,"Bienvenido " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
 
                                   }else{
-                                      JOptionPane.showMessageDialog(null,"El usuario o contraseña no existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                                      JOptionPane.showMessageDialog(null,"Verifique contraseña" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
                                     }                                                                                      
-                                 }           
+                         } else{
+                        
+                         JOptionPane.showMessageDialog(null,"Verificar datos ingresados" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                        
+                               }          
                        }catch(Exception ex){
                                 JOptionPane.showMessageDialog(null,"error al buscar usuario " + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
                          }

@@ -10,6 +10,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +22,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javax.swing.JOptionPane;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * FXML Controller class
@@ -86,6 +91,28 @@ public class UsuariosAltaControlador implements Initializable {// VIDEO 27 .Curs
                     
     }    
     
+     public Boolean validarCorreo(String email){
+          Boolean exito=false;
+        // Patrón para validar el email
+         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+ 
+        // El email a validar
+         //email = "info@programacionextrema.com";
+ 
+        Matcher mather = pattern.matcher(email);
+ 
+        if (mather.find() == true) {
+            System.out.println("El email ingresado es válido.");
+            exito=true;
+        } else {
+            JOptionPane.showMessageDialog(null,"El email ingresado es invalido " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
+            exito=false;
+        }
+        
+     return exito;
+    }
+    
     public void limpiarCampos(){
         txtCorreoUsuario.setText("");
         txtUsuario.setText("");
@@ -105,12 +132,15 @@ public class UsuariosAltaControlador implements Initializable {// VIDEO 27 .Curs
              
                 if(!txtCorreoUsuario.getText().isEmpty() && !txtUsuario.getText().isEmpty() 
                         && !txtContraseña.getText().isEmpty() && !txtConfirmaContraseña.getText().isEmpty() ){
+                    usuario.setCorreo(txtCorreoUsuario.getText());
+                    if(validarCorreo(usuario.getCorreo()) ){
                     
                         if(txtContraseña.getText().equals(txtConfirmaContraseña.getText())){
                             
                                 usuario.setCorreo(txtCorreoUsuario.getText());
                                 usuario.setUsuario(txtUsuario.getText());
                                 usuario.setPassword(txtContraseña.getText());
+                                
 
                                 
                                 String query ="INSERT INTO `batman`.`usuario` ( `correo`, `usuario`, `pass`)"
@@ -131,8 +161,8 @@ public class UsuariosAltaControlador implements Initializable {// VIDEO 27 .Curs
                          } else{
                             
                                JOptionPane.showMessageDialog(null,"Debe ingresar la misma contraseña " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                             
-                          }                                                                      
-              
+                            }                                                                      
+                    }
                 }else{
                // JOptionPane.showMessageDialog(null,"Falta llenar algun campo " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
                         Alert alert = new Alert(Alert.AlertType.ERROR);
