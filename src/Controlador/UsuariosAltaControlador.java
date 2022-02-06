@@ -103,7 +103,7 @@ public class UsuariosAltaControlador implements Initializable {// VIDEO 27 .Curs
         Matcher mather = pattern.matcher(email);
  
         if (mather.find() == true) {
-            System.out.println("El email ingresado es válido.");
+           // System.out.println("El email ingresado es válido.");
             exito=true;
         } else {
             JOptionPane.showMessageDialog(null,"El email ingresado es invalido " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
@@ -127,41 +127,43 @@ public class UsuariosAltaControlador implements Initializable {// VIDEO 27 .Curs
          Usuario usuario= new Usuario();
         
         if(evento.equals(btnRegistrar)){//se aplica condicional para saber que boton se acciono
-            
-              //`AES_ENCRIP(? ,'Key')`
              
                 if(!txtCorreoUsuario.getText().isEmpty() && !txtUsuario.getText().isEmpty() 
                         && !txtContraseña.getText().isEmpty() && !txtConfirmaContraseña.getText().isEmpty() ){
-                    usuario.setCorreo(txtCorreoUsuario.getText());
-                    if(validarCorreo(usuario.getCorreo()) ){
+                        usuario.setCorreo(txtCorreoUsuario.getText());
                     
-                        if(txtContraseña.getText().equals(txtConfirmaContraseña.getText())){
+                    if(validarCorreo(usuario.getCorreo()) ){
+                        
+                        if(txtUsuario.getText().length() >= 3){                                              
+                    
+                             if(txtContraseña.getText().equals(txtConfirmaContraseña.getText())){
                             
-                                usuario.setCorreo(txtCorreoUsuario.getText());
-                                usuario.setUsuario(txtUsuario.getText());
-                                usuario.setPassword(txtContraseña.getText());
-                                
+                                    usuario.setCorreo(txtCorreoUsuario.getText());
+                                    usuario.setUsuario(txtUsuario.getText());
+                                    usuario.setPassword(txtContraseña.getText());
 
-                                
-                                String query ="INSERT INTO `batman`.`usuario` ( `correo`, `usuario`, `pass`)"
-                                        + "VALUES ( '"+usuario.getCorreo()+"', '"+usuario.getUsuario()+"' , AES_ENCRYPT( '" +usuario.getPassword()+"','AB12'))";
+                                    String query ="INSERT INTO `batman`.`usuario` ( `correo`, `usuario`, `pass`)"
+                                            + "VALUES ( '"+usuario.getCorreo()+"', '"+usuario.getUsuario()+"' , AES_ENCRYPT( '" +usuario.getPassword()+"','AB12'))";
 
-                                TransaccionesBD trscns = new TransaccionesBD();                                     
-                                boolean exito = trscns.ejecutarQuery(query); 
-                                
-                                     if(exito){
-                                         
-                                         JOptionPane.showMessageDialog(null,"El usuario fue creado con exito " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-                                         limpiarCampos();
-                                         
+                                    TransaccionesBD trscns = new TransaccionesBD();                                     
+                                    boolean exito = trscns.ejecutarQuery(query); 
+
+                                    if(exito){
+
+                                             JOptionPane.showMessageDialog(null,"El usuario fue creado con exito " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                                             limpiarCampos();
+
                                      }else{
-                                         JOptionPane.showMessageDialog(null," No se pudo ingresar usuario, verificar conexion " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-                                     
-                                     }
-                         } else{
+                                             JOptionPane.showMessageDialog(null," No se pudo ingresar usuario, verificar conexion " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+
+                                         }
+                              } else{
                             
-                               JOptionPane.showMessageDialog(null,"Debe ingresar la misma contraseña " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                             
-                            }                                                                      
+                                        JOptionPane.showMessageDialog(null,"Debe ingresar la misma contraseña " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                             
+                                 } 
+                          }else{
+                         JOptionPane.showMessageDialog(null,"El nombre de usuario debe contener al menos TRES caracteres" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
                 }else{
                // JOptionPane.showMessageDialog(null,"Falta llenar algun campo " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);

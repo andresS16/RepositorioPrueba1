@@ -48,7 +48,7 @@ public class Main extends Application {
         
      try{
            FXMLLoader loader= new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/vista/FormularioLU.fxml"));
+            loader.setLocation(Main.class.getResource("/vista/FormularioLU.fxml"));//FormularioLU.fxml
             
             Pane ventana = (Pane) loader.load();
             Scene scene = new Scene (ventana);
