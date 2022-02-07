@@ -35,7 +35,7 @@ public class FormularioLoginControlador implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
                
         try {
-            inisioSesion= cargarFormulario("/vista/Login2.fxml");          
+            inisioSesion= cargarFormulario("/vista/Login.fxml");          
             usuarioAlta = cargarFormulario("/vista/UsuariosAlta.fxml");
             
             contenedorFormulario.getChildren().addAll(inisioSesion,usuarioAlta);

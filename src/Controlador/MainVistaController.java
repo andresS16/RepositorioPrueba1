@@ -21,18 +21,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MainVistaController implements Initializable {
 
-    @FXML
-    private Button btnEstudiante;
-    @FXML
-    private Button btnProfesor;
-    @FXML
-    private Button btnSistema;
-    @FXML
-    private TableView<?> tblTablaMenu;
-    @FXML
-    private Button btnBuscar;
-    @FXML
-    private TextField txtBuscar;
 
     /**
      * Initializes the controller class.

@@ -35,7 +35,7 @@ import javax.swing.JOptionPane;
  *
  * @author Silva
  */
-public class Login2Controlador implements Initializable {
+public class LoginControlador implements Initializable {
     @FXML
     private VBox PanelInicioSesion;
     @FXML
@@ -151,11 +151,9 @@ public class Login2Controlador implements Initializable {
                                      try {
                                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/MainVista.fxml"));//carga una gerarqui DE OBJETOS
 
-                                              Pane root = (Pane) loader.load();//carga el parent
+                                            Pane root = (Pane) loader.load();//carga el parent
             
-                                            //IntroducirProfesorControlador controlador = loader.getController();//carga el controlador de esa vista
-                                       MainVistaController controlador = loader.getController();
-                                       
+                                            MainVistaController  controlador = loader.getController();//carga el controlador de esa vista                                                                                  
 
                                             Scene escene= new Scene(root);
                                             Stage stage=new Stage();
@@ -165,13 +163,12 @@ public class Login2Controlador implements Initializable {
 
                                             //lo nuevo
                                            // stage.setOnCloseRequest(e -> controlador.closeWindows());
-
                                             //Stage myStage= (Stage)this.btnAgregarProfesor.getScene().getWindow();
                                             Stage myStage= (Stage)this.btnIngresar.getScene().getWindow();
                                             myStage.close();
 
                                         } catch (IOException ex) {
-                                            Logger.getLogger(Login2Controlador.class.getName()).log(Level.SEVERE, null, ex);
+                                            Logger.getLogger(LoginControlador.class.getName()).log(Level.SEVERE, null, ex);
                                         }  
 
                                   }else{
