@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class FormularioLoginControlador implements Initializable {
     @FXML
@@ -66,7 +67,8 @@ public class FormularioLoginControlador implements Initializable {
         if(evento.equals(btnInisiarSesion)){//se aplica condicional para saber que boton se acciono
             inisioSesion.setVisible(true);
             usuarioAlta.setVisible(false);
-            //System.out.println("    ENTRO EN EL IF DE INISIO DE SESION");        
+            //System.out.println("    ENTRO EN EL IF DE INISIO DE SESION");   
+           
               
   
         }else if(evento.equals(btnRegistrarUsuario)){      

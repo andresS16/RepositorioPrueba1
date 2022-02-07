@@ -12,11 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 
 
-import javafx.stage.Stage;//
-import javafx.application.Application;//
+import javafx.stage.Stage;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;//
-import javafx.scene.Parent;//
-import javafx.scene.Scene;//
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -47,10 +48,13 @@ public class Main extends Application {
        
         
      try{
-           FXMLLoader loader= new FXMLLoader();
+            //new ControladorEscenario(primaryStage);
+            FXMLLoader loader= new FXMLLoader();
             loader.setLocation(Main.class.getResource("/vista/FormularioLU.fxml"));//FormularioLU.fxml
             
             Pane ventana = (Pane) loader.load();
+           
+            
             Scene scene = new Scene (ventana);
             primaryStage.setScene(scene);
             primaryStage.show();

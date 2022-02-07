@@ -10,77 +10,83 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.MainVistaController">
+<BorderPane fx:id="panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.MainVistaController">
    <left>
-      <VBox prefHeight="288.0" prefWidth="256.0" style="-fx-background-color: #AFA541;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="288.0" prefWidth="82.0" style="-fx-background-color: #AFA541;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="201.0" prefWidth="116.0">
-               <children>
-                  <Text layoutX="32.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="logo">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="260.0" text="Editar datos">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="258.0" text="Asignar aula">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="267.0" text="Reservas">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="262.0" text="Mostrar">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="264.0" text="Reporte">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
+            <Pane prefHeight="175.0" prefWidth="82.0" />
          </children>
       </VBox>
    </left>
-   <top>
-      <Pane prefHeight="62.0" prefWidth="600.0" style="-fx-background-color: #808000;" BorderPane.alignment="CENTER" />
-   </top>
    <right>
       <Pane prefHeight="432.0" prefWidth="82.0" style="-fx-background-color: #AFA541;" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <GridPane prefHeight="498.0" prefWidth="569.0" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="254.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="509.0" minHeight="10.0" prefHeight="496.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Pane prefHeight="432.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <VBox prefHeight="151.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="569.0" spacing="20.0">
-               <GridPane.margin>
+            <Pane prefHeight="211.0" prefWidth="800.0" style="-fx-background-color: #AFA541;">
+               <opaqueInsets>
                   <Insets />
-               </GridPane.margin>
+               </opaqueInsets>
+            </Pane>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #AFA541;">
                <children>
-                  <TextField />
-                  <ChoiceBox prefWidth="150.0" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <MenuButton fx:id="btnEditarDatos" mnemonicParsing="false" text="Editar datos">
+                    <items>
+                      <MenuItem fx:id="miProfesor" mnemonicParsing="false" onAction="#evento" text="Profesor" />
+                      <MenuItem fx:id="miAlumno" mnemonicParsing="false" onAction="#evento" text="Alumno" />
+                        <MenuItem fx:id="miMateria" mnemonicParsing="false" onAction="#evento" text="Materia" />
+                        <MenuItem fx:id="miCarrera" mnemonicParsing="false" onAction="#evento" text="Carrera" />
+                    </items>
+                     <HBox.margin>
+                        <Insets bottom="5.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Asignar aula">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Reservas">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Mostrar">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </MenuButton>
+                  <MenuButton mnemonicParsing="false" text="Reporte">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </MenuButton>
                </children>
+               <padding>
+                  <Insets left="90.0" />
+               </padding>
             </HBox>
          </children>
-         <BorderPane.margin>
-            <Insets left="5.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </center>
+      </VBox>
+   </top>
 </BorderPane>

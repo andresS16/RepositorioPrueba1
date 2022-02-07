@@ -156,10 +156,12 @@ public class LoginControlador implements Initializable {
                                             MainVistaController  controlador = loader.getController();//carga el controlador de esa vista                                                                                  
 
                                             Scene escene= new Scene(root);
+                                           
                                             Stage stage=new Stage();
-
+                                            
                                             stage.setScene(escene);
                                             stage.show();
+                                             
 
                                             //lo nuevo
                                            // stage.setOnCloseRequest(e -> controlador.closeWindows());
