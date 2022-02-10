@@ -33,8 +33,6 @@ import javafx.stage.Stage;
  */
 public class MainVistaController implements Initializable {
 
-    @FXML
-    private MenuButton btnEditarDatos;
     
     @FXML
     private BorderPane panel;
@@ -47,6 +45,8 @@ public class MainVistaController implements Initializable {
     private MenuItem miMateria;
     @FXML
     private MenuItem miCarrera;
+    @FXML
+    private MenuButton btnEditarDatos;
     
 
 
@@ -60,10 +60,10 @@ public class MainVistaController implements Initializable {
     
 
   
-
+ 
     @FXML
-    private void evento(ActionEvent ev) {
-         Object evento = ev.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
+    private void evento(ActionEvent event) {
+         Object evento = event.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         
         if(evento.equals(miProfesor)){//se aplica condicional para saber que boton se acciono     
             
@@ -143,5 +143,8 @@ public class MainVistaController implements Initializable {
         
         
     }
+
+
+   
     
 }

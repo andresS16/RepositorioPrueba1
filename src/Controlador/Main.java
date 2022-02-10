@@ -50,9 +50,10 @@ public class Main extends Application {
      try{
             //new ControladorEscenario(primaryStage);
             FXMLLoader loader= new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/vista/FormularioLU.fxml"));//FormularioLU.fxml
+            loader.setLocation(Main.class.getResource("/vista/Formulario.fxml"));//FormularioLU.fxml
             
             Pane ventana = (Pane) loader.load();
+            
            
             
             Scene scene = new Scene (ventana);

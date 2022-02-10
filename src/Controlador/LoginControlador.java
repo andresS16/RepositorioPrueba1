@@ -112,8 +112,7 @@ public class LoginControlador implements Initializable {
     @FXML
     private void actionEvent(ActionEvent e) {
         
-        
-        Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
+         Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         Usuario usuario= new Usuario();
          
          if(btnIngresar.equals(evento)){//String query ="SELECT * FROM profesor4 WHERE id = " + idBusqueda;...String query = "SELECT * FROM profesor4 WHERE apellido LIKE '%" + apellidoBusqueda + "%'";

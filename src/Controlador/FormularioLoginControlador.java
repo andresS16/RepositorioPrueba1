@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -31,6 +32,8 @@ public class FormularioLoginControlador implements Initializable {
     private StackPane contenedorFormulario;         
     private VBox inisioSesion;
     private VBox usuarioAlta;
+    @FXML
+    private VBox vbox;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,8 +81,6 @@ public class FormularioLoginControlador implements Initializable {
     
           }
     }
-
-
 
     
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.IngresoProfesorController">
+   <children>
+      <VBox prefHeight="436.0" prefWidth="468.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <TextField fx:id="txtNombre" promptText="Nombre">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="50.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="txtApellido" prefHeight="25.0" prefWidth="149.0" promptText="Apellido">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="50.0" />
+               </VBox.margin>
+            </TextField>
+            <ComboBox fx:id="comboMateria" prefWidth="179.0" promptText="Materia">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="50.0" />
+               </VBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="comboCarrera" prefWidth="183.0" promptText="Carrera">
+               <VBox.margin>
+                  <Insets left="100.0" right="50.0" top="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <DatePicker fx:id="dateFecha">
+               <VBox.margin>
+                  <Insets left="100.0" right="50.0" top="10.0" />
+               </VBox.margin>
+            </DatePicker>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarProfesor" prefHeight="25.0" prefWidth="114.0" text="Guardar">
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarProfesor" prefHeight="25.0" prefWidth="118.0" text="Eliminar">
+                     <HBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Cancelar">
+                     <HBox.margin>
+                        <Insets left="5.0" right="10.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
