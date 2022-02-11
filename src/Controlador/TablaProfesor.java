@@ -44,7 +44,7 @@ import modelo.Profesor;
  *
  * @author Silva
  */
-public class TablaProfesorVistaController implements Initializable {
+public class TablaProfesor implements Initializable {
 
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
    
@@ -80,20 +80,14 @@ public class TablaProfesorVistaController implements Initializable {
     @FXML
     private Button bttNuevo;
     Profesor profesor;
-    
-   
-    
-
+       
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarVentana();
-        rellenarTablaProfesor();
-        
-        
-        
-       
-    }    
+        rellenarTablaProfesor();                     
+    }   
+    
     public void configurarVentana(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));//cada col. se asigna setvalufactory
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -103,6 +97,7 @@ public class TablaProfesorVistaController implements Initializable {
          colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         tblProfesores.setItems(profesores);   
     }
+    
     public void rellenarTablaProfesor(){
         profesores.clear();
          RepoProfesor repoProf=new RepoProfesor();
@@ -114,59 +109,30 @@ public class TablaProfesorVistaController implements Initializable {
 
     @FXML
     private void seleccionar(MouseEvent event) {
-         Profesor p = this.tblProfesores.getSelectionModel().getSelectedItem();
-         Materia m= new Materia();
-         
-                       
+        Profesor p = this.tblProfesores.getSelectionModel().getSelectedItem();
+        Materia m= new Materia();
+                                
          try {
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS
-        
+             
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS        
             Parent root = loader.load();//carga el parent            
-            IngresoProfesorController controlador = loader.getController();//carga el controlador de esa vista                     
+            IngresoProfesor controlador = loader.getController();//carga el controlador de esa vista                     
             //controlador.initAttributes(personas);
             controlador.traer(p);
             Scene scene = new Scene(root);
             Stage stage = new Stage(); 
-            
-            
-            
+                                  
             stage.initModality(Modality.APPLICATION_MODAL);//modal : hasta que no termine el no me deje
-            stage.setScene(scene); 
-            
+            stage.setScene(scene);            
             stage.showAndWait();  
             
-            //Persona p = controlador.getPersona();
-            /*if(p != null){
-                this.personas.add(p);
-                    if(p.getNombre().toLowerCase().contains(this.txtFiltrarNombre.getText().toLowerCase())){
-                        this.filtroPersonas.add(p);
-                    }
-                this.tblPersona.refresh();     
-            } */
-            
-        } catch (IOException ex) {
-           Alert alert=new Alert(Alert.AlertType.ERROR);
-             alert.setHeaderText(null);
-             alert.setTitle("Error");
-             alert.setContentText(ex.getMessage());
-             alert.showAndWait();  
-        } 
-         
-         
-         
-         
-     
-        /*if(p !=null){         
-             this.txtId.setText(p.getId()+ "");
-             this.txtNombre.setText(p.getNombre());
-             this.txtApellido.setText(p.getApellido());
-             this.comboMateria.getSelectionModel().select(p.getMateria());
-             this.comboCarrera.getSelectionModel().select(p.getCarrera());
-             this.dateFecha.setValue(p.getFecha());                  
-        } */
-        
-      
-        
+          }catch (IOException ex) {
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();  
+            }                                                  
     }
 
     @FXML
@@ -177,46 +143,33 @@ public class TablaProfesorVistaController implements Initializable {
     private void refrescar(ActionEvent event) {
         rellenarTablaProfesor();
         
-            try {
-            DefaultTableModel modelo = new  DefaultTableModel();
+            try {               
+                 DefaultTableModel modelo = new  DefaultTableModel();
              
              } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "error al refrescar", "Error",JOptionPane.WARNING_MESSAGE);
-               return; 
-                }  
-        
-        
+                 JOptionPane.showMessageDialog(null, "error al refrescar", "Error",JOptionPane.WARNING_MESSAGE);
+                 return; 
+               }                 
     }
 
     @FXML
     private void nuevo(ActionEvent event) {
         
-         try {
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS
-        
-            Parent root = loader.load();//carga el parent 
-            
-            IngresoProfesorController controlador = loader.getController();//carga el controlador de esa vista
-            
-            //controlador.initAttributes(personas);
-            
+        try {
+             
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS       
+            Parent root = loader.load();//carga el parent             
+            IngresoProfesor controlador = loader.getController();//carga el controlador de esa vista           
+            //controlador.initAttributes(personas);            
             Scene scene = new Scene(root);
             Stage stage = new Stage();         
             
             stage.initModality(Modality.APPLICATION_MODAL);//modal : hasta que no termine el no me deje
             stage.setScene(scene);
             stage.showAndWait();
-            
-            //Persona p = controlador.getPersona();
-            /*if(p != null){
-                this.personas.add(p);
-                    if(p.getNombre().toLowerCase().contains(this.txtFiltrarNombre.getText().toLowerCase())){
-                        this.filtroPersonas.add(p);
-                    }
-                this.tblPersona.refresh();     
-            } */
-            
+                                 
         } catch (IOException ex) {
+            
            Alert alert=new Alert(Alert.AlertType.ERROR);
              alert.setHeaderText(null);
              alert.setTitle("Error");
@@ -230,10 +183,5 @@ public class TablaProfesorVistaController implements Initializable {
     public Profesor getProfesor() {
         return profesor;
     }
-
-
-
-    
-    
-    
+       
 }

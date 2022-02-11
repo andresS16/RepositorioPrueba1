@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.IngresoProfesorController">
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.IngresoProfesor">
    <children>
       <VBox prefHeight="436.0" prefWidth="468.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -43,12 +43,12 @@
                         <Insets left="10.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarProfesor" prefHeight="25.0" prefWidth="118.0" text="Eliminar">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#actionEvent" prefHeight="25.0" prefWidth="118.0" text="Eliminar">
                      <HBox.margin>
                         <Insets left="5.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Cancelar">
+                  <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#actionEvent" prefHeight="25.0" prefWidth="117.0" text="Modificar">
                      <HBox.margin>
                         <Insets left="5.0" right="10.0" top="20.0" />
                      </HBox.margin>

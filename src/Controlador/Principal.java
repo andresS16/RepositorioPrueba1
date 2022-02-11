@@ -31,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author Silva
  */
-public class MainVistaController implements Initializable {
+public class Principal implements Initializable {
 
     
     @FXML
@@ -50,17 +50,11 @@ public class MainVistaController implements Initializable {
     
 
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
-
-  
- 
+      
     @FXML
     private void evento(ActionEvent event) {
          Object evento = event.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
@@ -75,7 +69,7 @@ public class MainVistaController implements Initializable {
             
                 AnchorPane ventana = (AnchorPane) loader.load();
                 panel.setCenter(ventana);
-                TablaProfesorVistaController tblc = loader.getController();                                                             
+                TablaProfesor tblc = loader.getController();                                                             
                //principal.setScene(scene);
                    
              } catch(IOException e){
@@ -112,7 +106,7 @@ public class MainVistaController implements Initializable {
             
                 AnchorPane ventana = (AnchorPane) loader.load();
                 panel.setCenter(ventana);
-                TablaProfesorVistaController tblc = loader.getController();                                                             
+                TablaProfesor tblc = loader.getController();                                                             
                //principal.setScene(scene);
                    
              } catch(IOException e){

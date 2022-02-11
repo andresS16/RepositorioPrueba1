@@ -148,11 +148,11 @@ public class LoginControlador implements Initializable {
                                     limpiarCampos();
                                     
                                      try {
-                                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/MainVista.fxml"));//carga una gerarqui DE OBJETOS
+                                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Principal.fxml"));//carga una gerarqui DE OBJETOS
 
                                             Pane root = (Pane) loader.load();//carga el parent
             
-                                            MainVistaController  controlador = loader.getController();//carga el controlador de esa vista                                                                                  
+                                            Principal  controlador = loader.getController();//carga el controlador de esa vista                                                                                  
 
                                             Scene escene= new Scene(root);
                                            

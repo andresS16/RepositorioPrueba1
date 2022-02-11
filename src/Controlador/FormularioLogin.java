@@ -23,7 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FormularioLoginControlador implements Initializable {
+public class FormularioLogin implements Initializable {
     @FXML
     private Button btnInisiarSesion;
     @FXML
@@ -47,7 +47,7 @@ public class FormularioLoginControlador implements Initializable {
             usuarioAlta.setVisible(false);
       
         } catch (IOException ex) {
-            Logger.getLogger(FormularioLoginControlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormularioLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
  
