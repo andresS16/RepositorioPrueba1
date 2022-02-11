@@ -6,6 +6,15 @@ public class Carrera {
     private String nombre_carrera;
     private String cantidad_materia;
     private Profesor director;
+    long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Carrera() {
     }

@@ -6,8 +6,10 @@
 package Controlador;
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +37,7 @@ import modelo.Profesor;
  * @author Silva
  */
 public class IngresoProfesor implements Initializable {
+    
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
 
     @FXML
@@ -55,26 +58,33 @@ public class IngresoProfesor implements Initializable {
     Long id=null;
     @FXML
     private Button btnModificar;
-   
-
     /**
      * Initializes the controller class.
      */
+    ArrayList<Carrera> listaCarrera  = new ArrayList<>();
+     ArrayList<Materia> listaMateria  = new ArrayList<>();
+   
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-         ObservableList<Materia> listaMateria =FXCollections.observableArrayList();
+    public void initialize(URL url, ResourceBundle rb) {   
+        IngresoProfesor in = new IngresoProfesor();
+        listaMateria = in.seleMateria();
+        listaCarrera= in.seleCarrera();
+        
+         /*ObservableList<Materia> listaMateria =FXCollections.observableArrayList();
         listaMateria.addAll(new Materia("Ingles"), 
-                              new Materia("calculo1"),
+                              new Materia("calculo"),
                               new Materia("algoritmos"));       
           //comboMateria.getItems().addAll(listaMateria);
-         comboMateria.setItems(listaMateria);        
-         ObservableList<Carrera> listaCarrera =FXCollections.observableArrayList();
+         comboMateria.setItems(listaMateria); */
+         
+         /*ObservableList<Carrera> listaCarrera =FXCollections.observableArrayList();
          listaCarrera.addAll(new Carrera("Ingenieria"), 
                               new Carrera("Medicina"),
-                              new Carrera("Enfermeria"));       
-          //comboMateria.getItems().addAll(listaMateria);
-           comboCarrera.setItems(listaCarrera);  
-        // TODO
+                              new Carrera("Enfermeria")); */   
+          //comboMateria.getItems().addAll(listaMateria);*/
+           //comboCarrera.setItems(listaCarrera);   
+           comboMateria.getItems().addAll(listaMateria);
+           comboCarrera.getItems().addAll(listaCarrera);
     }  
     
     
@@ -234,6 +244,69 @@ public class IngresoProfesor implements Initializable {
              Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
              stage.close(); 
                                       
+    }
+     
+    public ArrayList<Carrera> seleCarrera(){
+        Carrera carrera = new Carrera();
+        ArrayList<Carrera> lista  = new ArrayList<>();
+        
+        String query = "select id,nombre FROM carrera where 1 ORDER BY nombre ASC;";
+        
+           TransaccionesBD trscns = new TransaccionesBD();
+            ResultSet rs = trscns.realizarConsulta(query);
+            try{
+                while(rs.next()){
+                     //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
+                  // long idBusqueda=rs.getLong("id");                                                                      
+                    carrera = new Carrera();
+                    //carrera.setId(rs.getLong("id"));
+                    carrera.setNombre_carrera(rs.getString("nombre"));
+                    System.out.println("la carrera es " + carrera.getNombre_carrera());
+                                       
+                    lista.add(carrera);  
+                    
+                }           
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"error en metodo de seleCarrera" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            //String carreraA = carrera.getNombre_carrera();
+            
+            
+            System.out.println("la carrera es " + carrera.getNombre_carrera());
+            return lista;
+           
+    
+    }
+    
+     public ArrayList<Materia> seleMateria(){
+        Carrera carrera = new Carrera();
+        ArrayList<Materia> lista  = new ArrayList<>();
+        
+        String query = "select id,nombre FROM materia where 1 ORDER BY nombre ASC;";
+        
+           TransaccionesBD trscns = new TransaccionesBD();
+            ResultSet rs = trscns.realizarConsulta(query);
+            try{
+                while(rs.next()){
+                     //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
+                  // long idBusqueda=rs.getLong("id");                                                                      
+                    Materia materia = new Materia();
+                    materia.setNombre_Materia(rs.getString("nombre"));
+                    System.out.println("la materia es " + materia.getNombre_Materia());
+                                       
+                    lista.add(materia);  
+                    
+                }           
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"error en metodo de seleMateria" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            //String carreraA = carrera.getNombre_carrera();
+            
+            
+            System.out.println("la carrera es " + carrera.getNombre_carrera());
+            return lista;
+           
+    
     }
     
 }
