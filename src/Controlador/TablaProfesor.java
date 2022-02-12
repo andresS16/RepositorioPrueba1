@@ -36,6 +36,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Carrera;
 import modelo.Materia;
 import modelo.Profesor;
+
 //import modelo.Carrera;
 //import modelo.Materia;
 //import modelo.Profesor;
@@ -399,12 +400,9 @@ public class TablaProfesor implements Initializable {
     @FXML
     private void buscarProfesor(ActionEvent event) {
          
-         Profesor p =null;
-         long id=0;
-        
-        profesores.clear();
-        
-         String modoBusqueda= chcBuscar.getValue();
+        Profesor p =null;
+        long id=0;                      
+        String modoBusqueda= chcBuscar.getValue();
         TablaProfesor tabla = new TablaProfesor();
        // System.out.println(" el modo de busqueda es  : " +modoBusqueda);           
         ObservableList<Profesor> profeSeleccion = FXCollections.observableArrayList();
@@ -414,49 +412,98 @@ public class TablaProfesor implements Initializable {
               
         }else{
         
-         switch(modoBusqueda){ // busqueda por apellido , materia o carrera
+           switch(modoBusqueda){ // busqueda por apellido , materia o carrera
          
-            case "id":   
-                   
-                                
-                 if(textBuscar.getText().equals("")){
-                     JOptionPane.showMessageDialog(null, "debe ingresar id ", "Error",JOptionPane.WARNING_MESSAGE); 
-                 }else if(textBuscar.getText()!=null){
-                     id = Long.parseLong(textBuscar.getText());
-                      p=tabla.buscarProfesorID(id);
-                      if(p!=null){
-                           profeSeleccion.addAll(tabla.buscarProfesorID(id)); 
-                      }else{
-                        JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
-                      }                                                                                 
-                 } 
-                                   
-                  break;             
-            case "apellido":              
-                String apellidoBusqueda = textBuscar.getText();
-                if(tabla.buscarProfeApellido(apellidoBusqueda)!= null){
-                     profeSeleccion.addAll(tabla.buscarProfeApellido(apellidoBusqueda));  
-                
-                }else if(tabla.buscarProfeApellido(apellidoBusqueda)== null){
-                    JOptionPane.showMessageDialog(null, "No se encontro apellido " , "Error",JOptionPane.WARNING_MESSAGE);
-                }                                        
-                 
-                break;                 
-            case "materia":
-                String materiaBusqueda = textBuscar.getText();
-                profeSeleccion.addAll(tabla.buscarProfeMateria(materiaBusqueda));                        
-                break;                                          
-            case "carrera":
-                String carreraBusqueda = textBuscar.getText();
-                profeSeleccion.addAll(tabla.buscarProfeCarrera(carreraBusqueda));
-                break; 
-            case "dni":
-                int dniBusqueda = Integer.parseInt(textBuscar.getText());
-                profeSeleccion.addAll(tabla.buscarProfesorDNI(dniBusqueda));
-                break;   
-                
-            default:
-                 JOptionPane.showMessageDialog(null, "Modo de busqueda incorrecto ", "Error",JOptionPane.WARNING_MESSAGE);
+                case "id":   
+                    String str = textBuscar.getText() ;
+                    boolean isNumeric = str.chars().allMatch( Character::isDigit );                                                                                               
+                    if(textBuscar.getText().isEmpty()){
+                         JOptionPane.showMessageDialog(null, "debe ingresar id ", "Error",JOptionPane.WARNING_MESSAGE); 
+
+                         }else if(textBuscar.getText()!=null){
+
+                                    if(isNumeric){                        
+                                        id = Long.parseLong(textBuscar.getText());                    
+                                        p=tabla.buscarProfesorID(id);
+
+                                        if(p!=null){
+                                             profeSeleccion.addAll(tabla.buscarProfesorID(id)); 
+                                             profesores.clear();
+                                        }else{
+                                         JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                         } 
+                                    }else{
+                                    JOptionPane.showMessageDialog(null, "debe ingresar numeros ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                      }                                         
+                                }                                                                
+                      break;             
+                case "apellido":              
+                    String apellidoBusqueda = textBuscar.getText();
+                   // boolean estaVacia =tabla.buscarProfeApellido(apellidoBusqueda).isEmpty();               
+                    if(textBuscar.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "debe ingresar apellido " , "Error",JOptionPane.WARNING_MESSAGE); 
+
+                    }else if(!tabla.buscarProfeApellido(apellidoBusqueda).isEmpty()){
+                         profesores.clear();
+                         profeSeleccion.addAll(tabla.buscarProfeApellido(apellidoBusqueda));                                       
+                    }  else{
+                    JOptionPane.showMessageDialog(null, "no se encontro apellido " , "Error",JOptionPane.WARNING_MESSAGE);
+                    }                                      
+
+                    break;                 
+                case "materia":
+                    String materiaBusqueda = textBuscar.getText();
+                    if(textBuscar.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "debe ingresar materia " , "Error",JOptionPane.WARNING_MESSAGE); 
+
+                    }else if(!tabla.buscarProfeMateria(materiaBusqueda).isEmpty()){
+                         profesores.clear();
+                          profeSeleccion.addAll(tabla.buscarProfeMateria(materiaBusqueda));                                      
+                    }  else{
+                    JOptionPane.showMessageDialog(null, "no se encontro materia " , "Error",JOptionPane.WARNING_MESSAGE);
+                    }
+
+
+                    break;                                          
+                case "carrera":
+                    String carreraBusqueda = textBuscar.getText();
+
+                    if(textBuscar.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "debe ingresar carrera " , "Error",JOptionPane.WARNING_MESSAGE); 
+
+                    }else if(!tabla.buscarProfeCarrera(carreraBusqueda).isEmpty()){
+                         profesores.clear();
+                           profeSeleccion.addAll(tabla.buscarProfeCarrera(carreraBusqueda));                                    
+                    }  else{
+                    JOptionPane.showMessageDialog(null, "no se encontro carrera " , "Error",JOptionPane.WARNING_MESSAGE);
+                    } 
+
+                    break; 
+                case "dni":               
+                    String string = textBuscar.getText() ;
+                    boolean isNumero = string.chars().allMatch( Character::isDigit );                                                                                               
+                    if(textBuscar.getText().isEmpty()){
+                         JOptionPane.showMessageDialog(null, "debe ingresar dni ", "Error",JOptionPane.WARNING_MESSAGE); 
+
+                         }else if(textBuscar.getText()!=null){
+
+                                    if(isNumero){                        
+                                        int dniBusqueda = Integer.parseInt(textBuscar.getText());                    
+                                        p=tabla.buscarProfesorDNI(dniBusqueda);
+
+                                        if(p!=null){
+                                             profeSeleccion.addAll(tabla.buscarProfesorDNI(dniBusqueda)); 
+                                             profesores.clear();
+                                        }else{
+                                             JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                         }                                    
+                                    }else{
+                                        JOptionPane.showMessageDialog(null, "debe ingresar numeros ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                      }                                         
+                                }                                                
+                    break;                  
+                default:
+                     JOptionPane.showMessageDialog(null, "Modo de busqueda incorrecto ", "Error",JOptionPane.WARNING_MESSAGE);
         }
         
         profesores.addAll(profeSeleccion);
@@ -464,9 +511,7 @@ public class TablaProfesor implements Initializable {
         lblResultado.setText("Resultados " + resultado);  
         
         }
-        
-    
-                       
+                                 
     }
     
     public void Refrech(){
