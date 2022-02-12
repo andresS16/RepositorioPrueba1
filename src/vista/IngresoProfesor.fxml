@@ -11,6 +11,11 @@
    <children>
       <VBox prefHeight="436.0" prefWidth="468.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
+            <TextField fx:id="txtDNI" prefHeight="25.0" prefWidth="239.0" promptText="dni">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="50.0" />
+               </VBox.margin>
+            </TextField>
             <TextField fx:id="txtNombre" promptText="Nombre">
                <VBox.margin>
                   <Insets bottom="10.0" left="100.0" right="50.0" />

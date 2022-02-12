@@ -25,7 +25,7 @@
       </VBox>
       <TableView fx:id="tblProfesores" layoutY="166.0" onMouseClicked="#seleccionar" prefHeight="386.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
-            <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
+            <TableColumn fx:id="colDNI" prefWidth="75.0" text="DNI" />
             <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
             <TableColumn fx:id="colApellido" prefWidth="75.0" text="Apellido" />
             <TableColumn fx:id="colMateria" prefWidth="123.0" text="Materia" />

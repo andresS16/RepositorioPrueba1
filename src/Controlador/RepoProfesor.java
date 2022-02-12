@@ -23,9 +23,11 @@ public class RepoProfesor {
      
     public boolean insertar(Profesor profesor){
          
-        String query = "INSERT INTO profesor4(id ,nombre,apellido,materia,carrera,fecha)" 
+        String query = "INSERT INTO profesor4(id ,dni,nombre,apellido,materia,carrera,fecha)" 
                 + "VALUES(' "
                 + profesor.getId() 
+                + " ',' " 
+                 +  profesor.getDni()
                 + " ',' " 
                 +  profesor.getNombre()
                 +"','"
@@ -82,7 +84,8 @@ public class RepoProfesor {
           
             try{
                 if(rs.next()){
-                    idBusqueda=rs.getLong("id");            
+                    idBusqueda=rs.getLong("id");  
+                    int dni=rs.getInt("dni");
                     String nombre = rs.getString("nombre");
                     String apellido = rs.getString("apellido");
                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
@@ -252,7 +255,8 @@ public class RepoProfesor {
                       
                       profesor=new Profesor();
                       
-                      profesor.setId(rs.getLong("id"));
+                     // profesor.setId(rs.getLong("id"));
+                      profesor.setDni(rs.getInt("dni"));
                       profesor.setNombre(rs.getString("nombre"));
                       profesor.setApellido(rs.getString("apellido"));
                       profesor.setFecha(rs.getDate("fecha").toLocalDate());

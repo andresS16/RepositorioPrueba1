@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class Profesor {
     private long id;
+    private int dni;
     private String nombre;
     private String apellido;
     private Carrera carrera;
@@ -155,7 +156,7 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "Profesor{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", carrera=" + carrera + ", materia=" + materia + ", fechaLong=" + fechaLong + ", fechaString=" + fechaString + '}';
+        return "Profesor{ dni="+dni+ ", nombre=" + nombre + ", apellido=" + apellido + ", carrera=" + carrera + ", materia=" + materia + ", fechaLong=" + fechaLong + ", fechaString=" + fechaString + '}';
     }
 
     public LocalDate getFecha() {
@@ -185,28 +186,14 @@ public boolean equals(Object o) {
         id == other.getId;
 
 }  
-    /*@Override
-public boolean equals(Object obj) {
-        Profesor p = (Profesor) obj;
-        if (id == p.getId())
-            return true;
-        else
-            return false;
-    }*/
-    
-    
 
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    } 
    
-
-    
-
-    
-
-   
-
-   
-
-   
-
     
 }

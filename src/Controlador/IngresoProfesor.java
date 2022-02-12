@@ -39,6 +39,8 @@ import modelo.Profesor;
 public class IngresoProfesor implements Initializable {
     
     private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
+    @FXML
+    private TextField txtDNI;
 
     @FXML
     private TextField txtNombre;
@@ -63,6 +65,7 @@ public class IngresoProfesor implements Initializable {
      */
     ArrayList<Carrera> listaCarrera  = new ArrayList<>();
      ArrayList<Materia> listaMateria  = new ArrayList<>();
+    
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
@@ -114,7 +117,8 @@ public class IngresoProfesor implements Initializable {
         
         if(evento.equals(btnEliminar)){
             
-            eliminarProfesor();                         
+            eliminarProfesor();      
+            //JOptionPane.showMessageDialog(null,"llama al metodo eliminar"+ id,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
         
         }else if(evento.equals(btnModificar)){   
             
@@ -131,182 +135,213 @@ public class IngresoProfesor implements Initializable {
          RepoProfesor rep = new RepoProfesor();     
          long id ; //Long.parseLong(this.txtId.getText())   
          id=rep.id_incrementable();
+         
+       
+         String bandera =this.txtDNI.getText();                 
          String nombre = this.txtNombre.getText(); 
          String apellido =this.txtApellido.getText(); 
          Materia materia= new Materia();
          Carrera carrera = new Carrera();      
          LocalDate fecha = this.dateFecha.getValue();  
          
-           if(nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
+        if(bandera.equals("") || nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
                    this.comboCarrera.getValue()==null || fecha== null ){
                
-                JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
-                rellenarTablaProfesor();
-                return ;
+            JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+            rellenarTablaProfesor();
+            return ;
                     
-            } else if(id >0 ) { 
+        } else if(id >0 ) { 
                                         
-                    p1=rep.buscarProfesor(id);                                                                                                    
-                        p.setId(id);
+            p1=rep.buscarProfesor(id);                                                                                                    
+            p.setId(id);
                                 
-                    if(p1 !=null && p !=null){
+            if(p1 !=null && p !=null){
                                      
-                        JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                     
+                 JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                     
                                      
-                      }else if(p1 ==null && p !=null){
-                                                                                                                                                                                                
-                              // id=Long.parseLong(txtId.getText());
-                            p.setId(id);                             
-                            p.setNombre(nombre);
-                            p.setApellido(apellido);
-                            materia.setNombre_Materia(comboMateria.getValue().toString());
-                            p.setMateria(materia);
-                            carrera.setNombre_carrera(comboCarrera.getValue().toString());
-                            p.setCarrera(carrera);
-                            p.setFecha(fecha);
-                              rep.insertar(p); 
+             }else if(p1 ==null && p !=null){
+                                                                                                                                                                                                                             
+                 int dni = Integer.parseInt(this.txtDNI.getText());
+                  p.setId(id); 
+                  p.setDni(dni);                          
+                  p.setNombre(nombre);
+                  p.setApellido(apellido);
+                  materia.setNombre_Materia(comboMateria.getValue().toString());
+                  p.setMateria(materia);
+                  carrera.setNombre_carrera(comboCarrera.getValue().toString());
+                  p.setCarrera(carrera);
+                  p.setFecha(fecha);
+                  rep.insertar(p); 
                                 
-                            JOptionPane.showMessageDialog(null,"Se guardo correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
-                            Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                             stage.close();
+                  JOptionPane.showMessageDialog(null,"Se guardo correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
+                  Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                  stage.close();
                                 //return; 
-                            }                                                                                                                                                         
-                  } 
-                                                                                                                                                    
+               }                                                                                                                                                         
+            }                                                                                                                                                    
              //vaciarCampos();
-             //habilitarCampos() 
-                    
+             //habilitarCampos()                     
     }
                
     public void traer(Profesor p){
-        
-       // JOptionPane.showMessageDialog(null,"el id seleccionado es : "+p.getId() ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-        IngresoProfesor nn = new IngresoProfesor();
-
+                           
         if(p !=null){         
                  //this.txtId.setText(p.getId()+ "");
-           // JOptionPane.showMessageDialog(null,"entro al if del metodo traer" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
-            this.id = p.getId();
+           //JOptionPane.showMessageDialog(null,"entro al if del metodo traer" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
+         
+            this.txtDNI.setText(p.getDni()+ "");
             this.txtNombre.setText(p.getNombre());
             this.txtApellido.setText(p.getApellido());
             this.comboMateria.getSelectionModel().select(p.getMateria());
             this.comboCarrera.getSelectionModel().select(p.getCarrera());
             this.dateFecha.setValue(p.getFecha());                          
-         } 
-   
-    }
-    
-    private void eliminarProfesor() {  
-                      
-        if(id > 0){
-            
-            int opcion = JOptionPane.showConfirmDialog(null, 
-                         "Desea eliminar " + "el registro ? " , "confirmacion" ,JOptionPane.YES_NO_OPTION,2);
-            
-             if(opcion== JOptionPane.YES_OPTION  ){
-                 
-                 String query ="DELETE FROM `profesor4` WHERE `profesor4`.`id` = " + id;// traer() trae id
-                 TransaccionesBD trscns = new TransaccionesBD();
-                  boolean exito = trscns.ejecutarQuery(query);
-                  
-                 JOptionPane.showMessageDialog(null,"Se elimino correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-                 vaciarCampos();
-                 Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                 stage.close();                   
-                  
-             }else if(opcion== JOptionPane.NO_OPTION){
-                    vaciarCampos();
-                    Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                    stage.close(); 
-                    JOptionPane.showMessageDialog(null,"Operacion cancelada" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-             
-                }
-                                                       
-        }     
-                                       
-    }  
-    
-   
-
-    private void modificarProfesor() {
-          String query="UPDATE `profesor4` SET "                 
-                   + "`nombre`='"+ this.txtNombre.getText()+"',"
-                   + "`apellido`='"+ this.txtApellido.getText()+"',"
-                   + "`materia`='"+ comboMateria.getValue() +"',"
-                   + "`carrera`='"+comboCarrera.getValue()+"',"
-                   + "`fecha`='"+dateFecha.getValue()+"' "
-                   + "WHERE `id`="+ id ;
-           
-            TransaccionesBD trscns = new TransaccionesBD();
-            boolean exito = trscns.ejecutarQuery(query);
-             JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-             vaciarCampos();
-             Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-             stage.close(); 
-                                      
-    }
-     
-    public ArrayList<Carrera> seleCarrera(){
-        Carrera carrera = new Carrera();
-        ArrayList<Carrera> lista  = new ArrayList<>();
+        }
         
-        String query = "select id,nombre FROM carrera where 1 ORDER BY nombre ASC;";
+        String query = "select id from profesor4 where dni='"+ p.getDni()+"'";
         
            TransaccionesBD trscns = new TransaccionesBD();
             ResultSet rs = trscns.realizarConsulta(query);
             try{
+                if(rs.next()){                   
+                     //JOptionPane.showMessageDialog(null, "entro en el if para asignar", "Error",JOptionPane.WARNING_MESSAGE);                 
+                     p.setId(rs.getLong("id"));
+                     this.id = p.getId();
+                                                                                                                                 }           
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null,"error en metodo de seleCarrera" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+    
+    }
+    
+    private void eliminarProfesor() { 
+        
+         String bandera =this.txtDNI.getText();       
+         String nombre = this.txtNombre.getText(); 
+         String apellido =this.txtApellido.getText(); 
+         Materia materia= new Materia();
+         Carrera carrera = new Carrera();      
+         LocalDate fecha = this.dateFecha.getValue();  
+         
+        if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
+                   this.comboCarrera.getValue()==null || fecha== null ){
+               
+            JOptionPane.showMessageDialog(null,"falta seleccionar profesor" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+            rellenarTablaProfesor();
+            return ;
+                    
+        } else if(id > 0){
+            
+                int opcion = JOptionPane.showConfirmDialog(null, 
+                             "Desea eliminar " + "el registro ? " , "confirmacion" ,JOptionPane.YES_NO_OPTION,2);
+
+                if(opcion== JOptionPane.YES_OPTION  ){
+
+                     String query ="DELETE FROM `profesor4` WHERE `profesor4`.`id` = " + id;// traer() trae id
+                     TransaccionesBD trscns = new TransaccionesBD();
+                      boolean exito = trscns.ejecutarQuery(query);
+
+                     JOptionPane.showMessageDialog(null,"Se elimino correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+                     vaciarCampos();
+                     Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                     stage.close();                   
+
+                }else if(opcion== JOptionPane.NO_OPTION){
+                        vaciarCampos();
+                        Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                        stage.close(); 
+                        JOptionPane.showMessageDialog(null,"Operacion cancelada" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+
+                   }                                                      
+        }                                           
+    }  
+    
+
+    private void modificarProfesor() {
+                                               
+         String bandera =this.txtDNI.getText();       
+         String nombre = this.txtNombre.getText(); 
+         String apellido =this.txtApellido.getText(); 
+         Materia materia= new Materia();
+         Carrera carrera = new Carrera();      
+         LocalDate fecha = this.dateFecha.getValue();  
+         
+        if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
+                   this.comboCarrera.getValue()==null || fecha== null ){
+               
+            JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+            rellenarTablaProfesor();
+            return ;
+                    
+        } else{
+            
+            String query="UPDATE `profesor4` SET "  
+            + "`dni`='"+ this.txtDNI.getText()+"',"
+            + "`nombre`='"+ this.txtNombre.getText()+"',"
+            + "`apellido`='"+ this.txtApellido.getText()+"',"
+            + "`materia`='"+ comboMateria.getValue() +"',"
+            + "`carrera`='"+comboCarrera.getValue()+"',"
+            + "`fecha`='"+dateFecha.getValue()+"' "
+            + "WHERE `id`="+ id ;
+
+            TransaccionesBD trscns = new TransaccionesBD();
+             boolean exito = trscns.ejecutarQuery(query);
+            JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+            vaciarCampos();
+            Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+            stage.close();                                                    
+          }                                                                                                            
+    }
+     
+    public ArrayList<Carrera> seleCarrera(){
+        
+        Carrera carrera = new Carrera();
+        ArrayList<Carrera> lista  = new ArrayList<>();        
+        String query = "select id,nombre FROM carrera where 1 ORDER BY nombre ASC;";       
+        TransaccionesBD trscns = new TransaccionesBD();
+        ResultSet rs = trscns.realizarConsulta(query);
+            
+            try{
                 while(rs.next()){
-                     //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
+                   //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
                   // long idBusqueda=rs.getLong("id");                                                                      
                     carrera = new Carrera();
                     //carrera.setId(rs.getLong("id"));
                     carrera.setNombre_carrera(rs.getString("nombre"));
                     System.out.println("la carrera es " + carrera.getNombre_carrera());
                                        
-                    lista.add(carrera);  
-                    
+                    lista.add(carrera);                     
                 }           
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error en metodo de seleCarrera" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-            //String carreraA = carrera.getNombre_carrera();
-            
-            
-            System.out.println("la carrera es " + carrera.getNombre_carrera());
-            return lista;
-           
-    
+            }                                  
+       // System.out.println("la carrera es " + carrera.getNombre_carrera());
+       return lista;             
     }
     
      public ArrayList<Materia> seleMateria(){
+        
         Carrera carrera = new Carrera();
-        ArrayList<Materia> lista  = new ArrayList<>();
+        ArrayList<Materia> lista  = new ArrayList<>();       
+        String query = "select id,nombre FROM materia where 1 ORDER BY nombre ASC;";       
+        TransaccionesBD trscns = new TransaccionesBD();
+        ResultSet rs = trscns.realizarConsulta(query);
         
-        String query = "select id,nombre FROM materia where 1 ORDER BY nombre ASC;";
-        
-           TransaccionesBD trscns = new TransaccionesBD();
-            ResultSet rs = trscns.realizarConsulta(query);
-            try{
-                while(rs.next()){
-                     //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
-                  // long idBusqueda=rs.getLong("id");                                                                      
-                    Materia materia = new Materia();
-                    materia.setNombre_Materia(rs.getString("nombre"));
-                    System.out.println("la materia es " + materia.getNombre_Materia());
-                                       
-                    lista.add(materia);  
-                    
+        try{
+            while(rs.next()){
+             //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
+             // long idBusqueda=rs.getLong("id");                                                                      
+                Materia materia = new Materia();
+                materia.setNombre_Materia(rs.getString("nombre"));
+                System.out.println("la materia es " + materia.getNombre_Materia());                                      
+                lista.add(materia);                     
                 }           
-            }catch(Exception ex){
+        }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error en metodo de seleMateria" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-            //String carreraA = carrera.getNombre_carrera();
-            
-            
-            System.out.println("la carrera es " + carrera.getNombre_carrera());
-            return lista;
-           
-    
+            }                                 
+           // System.out.println("la carrera es " + carrera.getNombre_carrera());
+     return lista;
+               
     }
     
 }
