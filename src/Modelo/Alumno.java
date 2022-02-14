@@ -1,56 +1,51 @@
 
 package modelo;
 
+import java.time.LocalDate;
+
 public class Alumno {
-    private long id_matricula;
-    private String nombre_alumno;
-    private String apellido_alumno;;
+    private long id;
+    private int dni;
+    private String nombre;
+    private String apellido;;
     private Carrera carrera;
-    private Materia materia;
-    private long fecha_BD;
-    private String fecha_usuario;
-
-    public Alumno(long id_matricula, String nombre_alumno, String apellido_alumno, Carrera carrera, Materia materia, long fecha_BD, String fecha_usuario) {
-        this.id_matricula = id_matricula;
-        this.nombre_alumno = nombre_alumno;
-        this.apellido_alumno = apellido_alumno;
-        this.carrera = carrera;
-        this.materia = materia;
-        this.fecha_BD = fecha_BD;
-        this.fecha_usuario = fecha_usuario;
+    private Materia materia;  
+   
+    private LocalDate fecha;
+    
+    public Alumno() {
     }
 
-    public Alumno(String nombre_alumno, String apellido_alumno, Carrera carrera, Materia materia, long fecha_BD, String fecha_usuario) {
-        this.nombre_alumno = nombre_alumno;
-        this.apellido_alumno = apellido_alumno;
-        this.carrera = carrera;
-        this.materia = materia;
-        this.fecha_BD = fecha_BD;
-        this.fecha_usuario = fecha_usuario;
+    public long getId() {
+        return id;
     }
 
-    public long getId_matricula() {
-        return id_matricula;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setId_matricula(long id_matricula) {
-        this.id_matricula = id_matricula;
+    public int getDni() {
+        return dni;
     }
 
-    public String getNombre_alumno() {
-        return nombre_alumno;
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
-    public void setNombre_alumno(String nombre_alumno) {
-        this.nombre_alumno = nombre_alumno;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getApellido_alumno() {
-        return apellido_alumno;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setApellido_alumno(String apellido_alumno) {
-        this.apellido_alumno = apellido_alumno;
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public Carrera getCarrera() {
@@ -69,27 +64,15 @@ public class Alumno {
         this.materia = materia;
     }
 
-    public long getFecha_BD() {
-        return fecha_BD;
+    public LocalDate getFecha() {
+        return fecha;
     }
 
-    public void setFecha_BD(long fecha_BD) {
-        this.fecha_BD = fecha_BD;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
-    public String getFecha_usuario() {
-        return fecha_usuario;
-    }
-
-    public void setFecha_usuario(String fecha_usuario) {
-        this.fecha_usuario = fecha_usuario;
-    }
-
-    @Override
-    public String toString() {
-        return "Alumno{" + "id_matricula=" + id_matricula + ", nombre_alumno=" + nombre_alumno + ", apellido_alumno=" + apellido_alumno + ", carrera=" + carrera  + '}';
-    }
-
+  
     
     
     

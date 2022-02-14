@@ -56,10 +56,13 @@ public class IngresoProfesor implements Initializable {
     private Button btnGuardar;
     @FXML
     private Button btnEliminar;
-    Profesor profesor;
-    Long id=null;
     @FXML
     private Button btnModificar;
+    
+    Profesor profesor;
+    Long id=null;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -69,9 +72,11 @@ public class IngresoProfesor implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {   
-        IngresoProfesor in = new IngresoProfesor();
-        listaMateria = in.seleMateria();
-        listaCarrera= in.seleCarrera();
+        IngresoProfesor ip = new IngresoProfesor();
+        listaMateria = ip.seleMateria();
+        listaCarrera= ip.seleCarrera();
+        comboMateria.getItems().addAll(listaMateria);
+         comboCarrera.getItems().addAll(listaCarrera);
         
          /*ObservableList<Materia> listaMateria =FXCollections.observableArrayList();
         listaMateria.addAll(new Materia("Ingles"), 
@@ -85,9 +90,8 @@ public class IngresoProfesor implements Initializable {
                               new Carrera("Medicina"),
                               new Carrera("Enfermeria")); */   
           //comboMateria.getItems().addAll(listaMateria);*/
+           
            //comboCarrera.setItems(listaCarrera);   
-           comboMateria.getItems().addAll(listaMateria);
-           comboCarrera.getItems().addAll(listaCarrera);
     }  
     
     
@@ -131,10 +135,13 @@ public class IngresoProfesor implements Initializable {
         
          Profesor p= new Profesor();
          Profesor p1=new Profesor();
+         IngresoProfesor ip= new IngresoProfesor();
+         TablaProfesor tp=new TablaProfesor();
          
-         RepoProfesor rep = new RepoProfesor();     
+         //RepoProfesor rep = new RepoProfesor();     
          long id ; //Long.parseLong(this.txtId.getText())   
-         id=rep.id_incrementable();
+         //id=rep.id_incrementable();
+         id=ip.id_incrementable();
          
        
          String bandera =this.txtDNI.getText();                 
@@ -151,17 +158,14 @@ public class IngresoProfesor implements Initializable {
             rellenarTablaProfesor();
             return ;
                     
-        } else if(id >0 ) { 
-                                        
-            p1=rep.buscarProfesor(id);                                                                                                    
+        } else if(id >0 ) {                                                
+            p1=tp.buscarProfesorID(id);
             p.setId(id);
                                 
-            if(p1 !=null && p !=null){
-                                     
+            if(p1 !=null && p !=null){                                    
                  JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                     
                                      
-             }else if(p1 ==null && p !=null){
-                                                                                                                                                                                                                             
+             }else if(p1 ==null && p !=null){                                                                                                                                                                                                                             
                  int dni = Integer.parseInt(this.txtDNI.getText());
                   p.setId(id); 
                   p.setDni(dni);                          
@@ -172,7 +176,8 @@ public class IngresoProfesor implements Initializable {
                   carrera.setNombre_carrera(comboCarrera.getValue().toString());
                   p.setCarrera(carrera);
                   p.setFecha(fecha);
-                  rep.insertar(p); 
+                  //rep.insertar(p); 
+                 ip.insertar(p);
                                 
                   JOptionPane.showMessageDialog(null,"Se guardo correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
                   Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
@@ -251,7 +256,6 @@ public class IngresoProfesor implements Initializable {
                         Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
                         stage.close(); 
                         JOptionPane.showMessageDialog(null,"Operacion cancelada" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-
                    }                                                      
         }                                           
     }  
@@ -308,7 +312,7 @@ public class IngresoProfesor implements Initializable {
                     carrera = new Carrera();
                     //carrera.setId(rs.getLong("id"));
                     carrera.setNombre_carrera(rs.getString("nombre"));
-                    System.out.println("la carrera es " + carrera.getNombre_carrera());
+                    //System.out.println("la carrera es " + carrera.getNombre_carrera());
                                        
                     lista.add(carrera);                     
                 }           
@@ -333,7 +337,7 @@ public class IngresoProfesor implements Initializable {
              // long idBusqueda=rs.getLong("id");                                                                      
                 Materia materia = new Materia();
                 materia.setNombre_Materia(rs.getString("nombre"));
-                System.out.println("la materia es " + materia.getNombre_Materia());                                      
+                //System.out.println("la materia es " + materia.getNombre_Materia());                                      
                 lista.add(materia);                     
                 }           
         }catch(Exception ex){
@@ -342,6 +346,52 @@ public class IngresoProfesor implements Initializable {
            // System.out.println("la carrera es " + carrera.getNombre_carrera());
      return lista;
                
+    }
+     public long id_incrementable(){
+           
+           long id=0;       
+           String query="SELECT MAX(id) FROM profesor4";              
+           TransaccionesBD trscns = new TransaccionesBD();
+           ResultSet rs = trscns.realizarConsulta(query);
+             try{
+                 while(rs.next()){                                                        
+                     id= rs.getLong(1)+1;
+                 }                                             
+             }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);                     
+             }
+             finally{//clase que cierra la coexion para evitar consumo de memoria
+                 try{
+                     rs.close();
+                 }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE); 
+                 }                     
+             }       
+        return id;
+       }
+      public boolean insertar(Profesor profesor){
+         
+        String query = "INSERT INTO profesor4(id ,dni,nombre,apellido,materia,carrera,fecha)" 
+                + "VALUES(' "
+                + profesor.getId() 
+                + " ',' " 
+                 +  profesor.getDni()
+                + " ',' " 
+                +  profesor.getNombre()
+                +"','"
+                + profesor.getApellido()
+                + " ',' " 
+                + profesor.getMateria()              
+                + " ',' " 
+                + profesor.getCarrera() 
+                + " ','" + profesor.getFecha()
+                + "' )";
+          
+        TransaccionesBD trscns = new TransaccionesBD();
+        boolean exito = trscns.ejecutarQuery(query);    
+        
+       // JOptionPane.showMessageDialog(null,"entro en metodo insertar REPO" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+        return exito;
     }
     
 }

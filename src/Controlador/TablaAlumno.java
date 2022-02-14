@@ -22,24 +22,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Carrera;
 import modelo.Materia;
+import modelo.Alumno;
 import modelo.Profesor;
-
-//import modelo.Carrera;
-//import modelo.Materia;
 //import modelo.Profesor;
 
 /**
@@ -47,53 +42,43 @@ import modelo.Profesor;
  *
  * @author Silva
  */
-public class TablaProfesor implements Initializable {
-
-    private ObservableList<Profesor> profesores = FXCollections.observableArrayList();
-   
-    @FXML
-    private TableColumn<Profesor,String> colNombre;
-    @FXML
-    private TableColumn<Profesor, String> colApellido;
-    @FXML
-    private TableColumn<Profesor, Materia> colMateria;
-    @FXML
-    private TableColumn<Profesor, Carrera> colCarrera;
-    @FXML
-    private TableColumn<Profesor, LocalDate> colFecha;
-    @FXML
-    private TableView<Profesor> tblProfesores;
-    //pegado
+public class TablaAlumno implements Initializable {    
     
+    private ObservableList<Alumno> alumnos = FXCollections.observableArrayList();   
+    @FXML
+    private TableColumn<Alumno,String> colNombre;
+    @FXML
+    private TableColumn<Alumno, String> colApellido;
+    @FXML
+    private TableColumn<Alumno, Materia> colMateria;
+    @FXML
+    private TableColumn<Alumno, Carrera> colCarrera;
+    @FXML
+    private TableColumn<Alumno, LocalDate> colFecha;         
     @FXML
     private TextField textBuscar;
     @FXML
     private ChoiceBox<String> chcBuscar;
     @FXML
-    private TextField lblResultado;
-    
-   // private ComboBox<Materia> comboMateria;
-    //private ComboBox<Carrera> comboCarrera;
+    private TextField lblResultado;   
     @FXML
     private Button btnBuscar;
     @FXML
-    private Button btnRefrescar;
+    private Button btnRefrescar;          
     @FXML
-    private Button bttNuevo;  
+    private TableColumn<Alumno,Integer> colDNI;
     @FXML
-    private TableColumn<Profesor,Integer> colDNI;
-    Profesor profesor; 
-       
+    private Button bttNuevoAlumno;
+    @FXML
+    private TableView<Alumno> tblAlumnos;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        chcBuscar.getItems().addAll("id","apellido","materia","carrera","dni"); 
+        chcBuscar.getItems().addAll("id","dni","apellido","materia","carrera"); 
         configurarVentana();
-        rellenarTablaProfesor();                     
-    }   
-    
-    public void configurarVentana(){
+        rellenarTablaAlumno();       
+    }  
+     public void configurarVentana(){
         
         colDNI.setCellValueFactory(new PropertyValueFactory<>("dni"));//cada col. se asigna setvalufactory
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -101,41 +86,36 @@ public class TablaProfesor implements Initializable {
         colMateria.setCellValueFactory(new PropertyValueFactory<>("materia"));
         colCarrera.setCellValueFactory(new PropertyValueFactory<>("carrera"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        tblProfesores.setItems(profesores);   
+        tblAlumnos.setItems(alumnos);                
     }
-    
-    public void rellenarTablaProfesor(){
-        profesores.clear();
-        // RepoProfesor repoProf=new RepoProfesor();
-        //ObservableList<Profesor> resultProfesores = repoProf.buscarTodos();
-        TablaProfesor tabla= new TablaProfesor();
-        ObservableList<Profesor> resultProfesores =tabla.buscarTodos();
-        profesores.setAll(resultProfesores);
-        int resultados = resultProfesores.size();//cuantos resultados hay en la lista
+     
+     public void rellenarTablaAlumno(){
+        alumnos.clear();                   
+        TablaAlumno tabla= new TablaAlumno();
+        ObservableList<Alumno> resultado=tabla.buscarTodos();
+        alumnos.setAll(resultado);
+        int resultados = resultado.size();//cuantos resultados hay en la lista
         lblResultado.setText("resultado :" +resultados);
+        
     }
-
+     
     @FXML
     private void seleccionar(MouseEvent event) {
         
-        TablaProfesor tabla=null;
-        Profesor p = this.tblProfesores.getSelectionModel().getSelectedItem();
+        Alumno p = this.tblAlumnos.getSelectionModel().getSelectedItem();
         
         if(p==null){            
-            JOptionPane.showMessageDialog(null, "seleccion nula ", "Error",JOptionPane.WARNING_MESSAGE);
-             
-        }else{    
-            
+            JOptionPane.showMessageDialog(null, "seleccion nula ", "Error",JOptionPane.WARNING_MESSAGE);            
+        }else{                
           try {            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoAlumno.fxml"));//carga una gerarqui DE OBJETOS        
             Parent root = loader.load();//carga el parent            
-            IngresoProfesor controlador = loader.getController();//carga el controlador de esa vista                     
+            IngresoAlumno controlador = loader.getController();//carga el controlador de esa vista                     
             //controlador.initAttributes(personas);
-            controlador.traer(p);
+            controlador.traerAlumno(p);
             controlador.seleCarrera();
             Scene scene = new Scene(root);
-            Stage stage = new Stage(); 
-                                  
+            Stage stage = new Stage();                                  
             stage.initModality(Modality.APPLICATION_MODAL);//modal : hasta que no termine el no me deje
             stage.setScene(scene);            
             stage.showAndWait();  
@@ -147,14 +127,47 @@ public class TablaProfesor implements Initializable {
             alert.setTitle("Error");
             alert.setContentText(ex.getMessage());
             alert.showAndWait();  
-          }           
-        }                                                            
+          }   
+        
+        }
+                                  
     }
+    
+    public ObservableList<Alumno> buscarTodos(){
+                         
+        String query = "SELECT * FROM alumno";
+        TransaccionesBD trscns = new TransaccionesBD(); 
+        ResultSet rs = trscns.realizarConsulta(query);
+        Alumno alumno =null;                 
+        ObservableList<Alumno>alumnos = FXCollections.observableArrayList();
+       
+       try{
+            while(rs.next()){                   
+                Materia materia= new Materia();
+                String m=rs.getString("materia");
+                materia.setNombre_Materia(m);
+                Carrera carrera = new Carrera();
+                carrera.setNombre_carrera(rs.getString("carrera"));                     
+                alumno= new Alumno();
+                alumno.setDni(rs.getInt("dni"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setFecha(rs.getDate("fecha").toLocalDate());                      
+                alumno.setMateria(materia);
+                alumno.setCarrera(carrera);                                 
+                alumnos.add(alumno);                                      
+                }  
+                rs.close();
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+       return alumnos;
+       } 
 
 
     @FXML
     private void refrescar(ActionEvent event) {
-        rellenarTablaProfesor();
+        rellenarTablaAlumno();
         
         try {               
             DefaultTableModel modelo = new DefaultTableModel();
@@ -162,20 +175,19 @@ public class TablaProfesor implements Initializable {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "error al refrescar", "Error",JOptionPane.WARNING_MESSAGE);
             return; 
-        }                 
+        } 
     }
-
+    
     @FXML
-    private void nuevo(ActionEvent event) {
+    private void nuevoAlumno(ActionEvent event) {
         
-        try {             
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoProfesor.fxml"));//carga una gerarqui DE OBJETOS       
+         try {             
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/IngresoAlumno.fxml"));//carga una gerarqui DE OBJETOS       
             Parent root = loader.load();//carga el parent             
-            IngresoProfesor controlador = loader.getController();//carga el controlador de esa vista           
+            IngresoAlumno controlador = loader.getController();//carga el controlador de esa vista           
             //controlador.initAttributes(personas);            
             Scene scene = new Scene(root);
-            Stage stage = new Stage();         
-            
+            Stage stage = new Stage();                    
             stage.initModality(Modality.APPLICATION_MODAL);//modal : hasta que no termine el no me deje
             stage.setScene(scene);
             stage.showAndWait();
@@ -188,23 +200,16 @@ public class TablaProfesor implements Initializable {
              alert.setContentText(ex.getMessage());
              alert.showAndWait();  
         } 
-                
     }
 
-    public Profesor getProfesor() {
-        return profesor;
-    }
-
-       
     @FXML
-    private void buscarProfesor(ActionEvent event) {
-         
-        Profesor p =null;
+    private void buscarAlumno(ActionEvent event) {
+        Alumno p =null;
         long id=0;                      
         String modoBusqueda= chcBuscar.getValue();
-        TablaProfesor tabla = new TablaProfesor();
+        TablaAlumno tabla = new TablaAlumno();
        // System.out.println(" el modo de busqueda es  : " +modoBusqueda);           
-        ObservableList<Profesor> profeSeleccion = FXCollections.observableArrayList();
+        ObservableList<Alumno> alumnoSeleccion = FXCollections.observableArrayList();
         
         if(modoBusqueda==null){
             JOptionPane.showMessageDialog(null, "Debe seleccionar metodo de busca ", "Error",JOptionPane.WARNING_MESSAGE); 
@@ -223,11 +228,11 @@ public class TablaProfesor implements Initializable {
 
                                 if(isNumeric){                        
                                   id = Long.parseLong(textBuscar.getText());                    
-                                  p=tabla.buscarProfesorID(id);
+                                  p=tabla.buscarAlumnoID(id);
 
                                     if(p!=null){
-                                       profeSeleccion.addAll(tabla.buscarProfesorID(id)); 
-                                       profesores.clear();
+                                       alumnoSeleccion.addAll(tabla.buscarAlumnoID(id)); 
+                                       alumnos.clear();
                                     }else{
                                        JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
                                          } 
@@ -244,8 +249,8 @@ public class TablaProfesor implements Initializable {
                         JOptionPane.showMessageDialog(null, "debe ingresar apellido " , "Error",JOptionPane.WARNING_MESSAGE); 
 
                     }else if(!tabla.buscarProfeApellido(apellidoBusqueda).isEmpty()){
-                         profesores.clear();
-                         profeSeleccion.addAll(tabla.buscarProfeApellido(apellidoBusqueda));                                       
+                         alumnos.clear();
+                         alumnoSeleccion.addAll(tabla.buscarProfeApellido(apellidoBusqueda));                                       
                     }  else{
                     JOptionPane.showMessageDialog(null, "no se encontro apellido " , "Error",JOptionPane.WARNING_MESSAGE);
                     }                                      
@@ -257,8 +262,8 @@ public class TablaProfesor implements Initializable {
                         JOptionPane.showMessageDialog(null, "debe ingresar materia " , "Error",JOptionPane.WARNING_MESSAGE); 
 
                     }else if(!tabla.buscarProfeMateria(materiaBusqueda).isEmpty()){
-                         profesores.clear();
-                          profeSeleccion.addAll(tabla.buscarProfeMateria(materiaBusqueda));                                      
+                        alumnos.clear();
+                        alumnoSeleccion.addAll(tabla.buscarProfeMateria(materiaBusqueda));                                      
                     }  else{
                     JOptionPane.showMessageDialog(null, "no se encontro materia " , "Error",JOptionPane.WARNING_MESSAGE);
                     }
@@ -271,9 +276,9 @@ public class TablaProfesor implements Initializable {
                     if(textBuscar.getText().isEmpty()){
                         JOptionPane.showMessageDialog(null, "debe ingresar carrera " , "Error",JOptionPane.WARNING_MESSAGE); 
 
-                    }else if(!tabla.buscarProfeCarrera(carreraBusqueda).isEmpty()){
-                         profesores.clear();
-                           profeSeleccion.addAll(tabla.buscarProfeCarrera(carreraBusqueda));                                    
+                    }else if(!tabla.buscarAlumnoCarrera(carreraBusqueda).isEmpty()){
+                         alumnos.clear();
+                           alumnoSeleccion.addAll(tabla.buscarAlumnoCarrera(carreraBusqueda));                                    
                     }  else{
                     JOptionPane.showMessageDialog(null, "no se encontro carrera " , "Error",JOptionPane.WARNING_MESSAGE);
                     } 
@@ -289,11 +294,11 @@ public class TablaProfesor implements Initializable {
 
                                     if(isNumero){                        
                                         int dniBusqueda = Integer.parseInt(textBuscar.getText());                    
-                                        p=tabla.buscarProfesorDNI(dniBusqueda);
+                                        p=tabla.buscarAlumnoDNI(dniBusqueda);
 
                                         if(p!=null){
-                                             profeSeleccion.addAll(tabla.buscarProfesorDNI(dniBusqueda)); 
-                                             profesores.clear();
+                                             alumnoSeleccion.addAll(tabla.buscarAlumnoDNI(dniBusqueda)); 
+                                             alumnos.clear();
                                         }else{
                                              JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
                                          }                                    
@@ -306,21 +311,19 @@ public class TablaProfesor implements Initializable {
                      JOptionPane.showMessageDialog(null, "Modo de busqueda incorrecto ", "Error",JOptionPane.WARNING_MESSAGE);
         }
         
-        profesores.addAll(profeSeleccion);
-        int resultado = profeSeleccion.size();
+        alumnos.addAll(alumnoSeleccion);
+        int resultado = alumnoSeleccion.size();
         lblResultado.setText("Resultados " + resultado);  
         
         }
-                                 
     }
-    
-      
-    public Profesor buscarProfesorID(long idBusqueda){
+           
+     public Alumno buscarAlumnoID(long idBusqueda){
         
-        String query ="SELECT * FROM profesor4 WHERE id = " + idBusqueda;
+        String query ="SELECT * FROM alumno WHERE id = " + idBusqueda;
         TransaccionesBD trscns = new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);            
-        Profesor profesor=null;
+        Alumno alumno =null;
           
         try{            
            if(rs.next()){
@@ -328,76 +331,37 @@ public class TablaProfesor implements Initializable {
             int dni = rs.getInt("dni");
             String nombre = rs.getString("nombre");
             String apellido = rs.getString("apellido");
-            LocalDate fecha = rs.getDate("fecha").toLocalDate();
-        
+            LocalDate fecha = rs.getDate("fecha").toLocalDate();        
             Materia materia= new Materia();
             materia.setNombre_Materia(rs.getString("materia"));
             Carrera carrera = new Carrera();
-            carrera.setNombre_carrera(rs.getString("carrera"));
-                     
-            profesor = new Profesor();
-            profesor.setId(idBusqueda);
-            profesor.setDni(dni);
-            profesor.setNombre(nombre);
-            profesor.setApellido(apellido);
-            profesor.setMateria(materia);
-            profesor.setCarrera(carrera);
-            profesor.setFecha(LocalDate.EPOCH);                
+            carrera.setNombre_carrera(rs.getString("carrera"));                     
+            alumno = new Alumno();
+            alumno .setId(idBusqueda);
+            alumno.setDni(dni);
+            alumno.setNombre(nombre);
+            alumno.setApellido(apellido);
+            alumno.setMateria(materia);
+            alumno.setCarrera(carrera);
+            alumno.setFecha(LocalDate.EPOCH);                
           }   
            
        }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
      //JOptionPane.showMessageDialog(null, "saliendo de metodo buscar por id ", "Error",JOptionPane.WARNING_MESSAGE);       
-    return profesor;                                  
+    return alumno;                                  
         }
-    
-     public Profesor buscarProfesorDNI(int dniBusqueda){
-         
-        String query ="SELECT * FROM profesor4 WHERE dni = " + dniBusqueda;
-        TransaccionesBD trscns = new TransaccionesBD();
-        ResultSet rs = trscns.realizarConsulta(query);           
-        Profesor profesor=null;
-          
-        try{
-            if(rs.next()){
-                //idBusqueda=rs.getLong("id");
-               int dni = rs.getInt("dni");
-               String nombre = rs.getString("nombre");
-               String apellido = rs.getString("apellido");
-               LocalDate fecha = rs.getDate("fecha").toLocalDate();
-        
-                Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
-                Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
-                     
-                profesor = new Profesor();
-               //profesor.setId(idBusqueda);
-                profesor.setDni(dniBusqueda);
-                profesor.setNombre(nombre);
-                profesor.setApellido(apellido);
-                profesor.setMateria(materia);
-                profesor.setCarrera(carrera);
-                profesor.setFecha(LocalDate.EPOCH);                
-                }           
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-    // JOptionPane.showMessageDialog(null, "saliendo de metodo buscar por id ", "Error",JOptionPane.WARNING_MESSAGE);       
-    return profesor;                                  
-        }
-        
-    public ObservableList<Profesor> buscarProfeApellido(String apellidoBusqueda){
+     
+     public ObservableList<Alumno> buscarProfeApellido(String apellidoBusqueda){
         
         //JOptionPane.showMessageDialog(null, "Ingreso en metodo buscarprofeApellido", "Error",JOptionPane.WARNING_MESSAGE);            
-        String query = "SELECT * FROM profesor4 WHERE apellido LIKE '%" + apellidoBusqueda + "%'";           
+        String query = "SELECT * FROM alumno WHERE apellido LIKE '%" + apellidoBusqueda + "%'";           
         TransaccionesBD trscns =new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);
-        Profesor profesor=null;            
-        ObservableList<Profesor> profesoresApellido = FXCollections.observableArrayList();
-            //JOptionPane.showMessageDialog(null, "entro en el metodo buscarApellido ", "Error",JOptionPane.WARNING_MESSAGE);
-           
+        Alumno alumno=null;            
+        ObservableList<Alumno> alumnoApellido = FXCollections.observableArrayList();
+            //JOptionPane.showMessageDialog(null, "entro en el metodo buscarApellido ", "Error",JOptionPane.WARNING_MESSAGE);           
         try{
             while(rs.next()){
                      //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
@@ -405,39 +369,37 @@ public class TablaProfesor implements Initializable {
                 int dni = rs.getInt("dni");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
-                LocalDate fecha = rs.getDate("fecha").toLocalDate();
-        
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();        
                 Materia materia= new Materia();
                 materia.setNombre_Materia(rs.getString("materia"));
                 Carrera carrera = new Carrera();
                 carrera.setNombre_carrera(rs.getString("carrera"));
                      
-                profesor = new Profesor();
-                profesor.setId(idBusqueda);
-                profesor.setDni(dni);
-                profesor.setNombre(nombre);
-                profesor.setApellido(apellido);
-                profesor.setMateria(materia);
-                profesor.setCarrera(carrera);
-                profesor.setFecha(LocalDate.EPOCH);
-                profesoresApellido.add(profesor);                               
+                alumno = new Alumno();
+                alumno .setId(idBusqueda);
+                alumno.setDni(dni);
+                alumno.setNombre(nombre);
+                alumno.setApellido(apellido);
+                alumno.setMateria(materia);
+                alumno.setCarrera(carrera);
+                alumno.setFecha(LocalDate.EPOCH);
+                alumnoApellido.add(alumno);  
                 }           
            }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
           
-      return profesoresApellido;                        
+      return alumnoApellido ;                        
     }
-    
-     public ObservableList<Profesor> buscarProfeMateria(String materiaBusqueda){
+     
+      public ObservableList<Alumno> buscarProfeMateria(String materiaBusqueda){
             
-        String query = "SELECT * FROM profesor4 WHERE materia LIKE '%" + materiaBusqueda + "%'";
+        String query = "SELECT * FROM alumno WHERE materia LIKE '%" + materiaBusqueda + "%'";
             
         TransaccionesBD trscns =new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);
-        Profesor profesor=null;
-            
-        ObservableList<Profesor> profesoresMateria = FXCollections.observableArrayList();
+        Alumno alumno =null;            
+        ObservableList<Alumno> alumnoMateria = FXCollections.observableArrayList();
            // JOptionPane.showMessageDialog(null, "entro en el metodo buscarMateria ", "Error",JOptionPane.WARNING_MESSAGE);          
         try{
             
@@ -454,121 +416,100 @@ public class TablaProfesor implements Initializable {
                 Carrera carrera = new Carrera();
                 carrera.setNombre_carrera(rs.getString("carrera"));
                      
-                profesor = new Profesor();
-                profesor.setId(idBusqueda);
-                profesor.setDni(dni);
-                profesor.setNombre(nombre);
-                profesor.setApellido(apellido);
-                profesor.setMateria(materia);
-                profesor.setCarrera(carrera);
-                profesor.setFecha(LocalDate.EPOCH);
-                profesoresMateria.add(profesor);                               
+                alumno = new Alumno();
+                alumno .setId(idBusqueda);
+                alumno.setDni(dni);
+                alumno.setNombre(nombre);
+                alumno.setApellido(apellido);
+                alumno.setMateria(materia);
+                alumno.setCarrera(carrera);
+                alumno.setFecha(LocalDate.EPOCH); ;                              
+                alumnoMateria.add(alumno);                               
                 }           
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
           
-            return profesoresMateria;                        
+            return alumnoMateria;                        
         }
-     
-    public ObservableList<Profesor> buscarProfeCarrera(String apellidoBusqueda){
+      
+    public ObservableList<Alumno> buscarAlumnoCarrera(String apellidoBusqueda){
             
-            String query = "SELECT * FROM profesor4 WHERE carrera LIKE '%" + apellidoBusqueda + "%'";
+            String query = "SELECT * FROM alumno WHERE carrera LIKE '%" + apellidoBusqueda + "%'";
             
             TransaccionesBD trscns =new TransaccionesBD();
             ResultSet rs = trscns.realizarConsulta(query);
-            Profesor profesor=null;
+            Alumno alumno =null;
             
-            ObservableList<Profesor> profesoresCarrera = FXCollections.observableArrayList();
+            ObservableList<Alumno> alumnoCarrera = FXCollections.observableArrayList();
             //JOptionPane.showMessageDialog(null, "entro en el metodo buscarApellido ", "Error",JOptionPane.WARNING_MESSAGE);
            
           try{
-                while(rs.next()){
+            while(rs.next()){
                      //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
-                   long idBusqueda=rs.getLong("id"); 
-                   int dni = rs.getInt("dni");
-                    String nombre = rs.getString("nombre");
-                    String apellido = rs.getString("apellido");
-                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
-        
-                    Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
-                    Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
-                     
-                    profesor = new Profesor();
-                    profesor.setId(idBusqueda);
-                    profesor.setDni(dni);
-                    profesor.setNombre(nombre);
-                    profesor.setApellido(apellido);
-                    profesor.setMateria(materia);
-                    profesor.setCarrera(carrera);
-                    profesor.setFecha(LocalDate.EPOCH);
-                    profesoresCarrera.add(profesor);                               
+                long idBusqueda=rs.getLong("id"); 
+                int dni = rs.getInt("dni");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                LocalDate fecha = rs.getDate("fecha").toLocalDate();       
+                Materia materia= new Materia();
+                materia.setNombre_Materia(rs.getString("materia"));
+                Carrera carrera = new Carrera();
+                carrera.setNombre_carrera(rs.getString("carrera"));  
+                
+                alumno = new Alumno();
+                alumno .setId(idBusqueda);
+                alumno.setDni(dni);
+                alumno.setNombre(nombre);
+                alumno.setApellido(apellido);
+                alumno.setMateria(materia);
+                alumno.setCarrera(carrera);
+                alumno.setFecha(LocalDate.EPOCH);                               
+                alumnoCarrera.add(alumno);                              
                 }           
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
           
-            return profesoresCarrera;                        
+            return alumnoCarrera;                        
         }
-
-    public void Refrech(){
-         rellenarTablaProfesor();
+    
+     public Alumno buscarAlumnoDNI(int dniBusqueda){
+         
+        String query ="SELECT * FROM alumno WHERE dni = " + dniBusqueda;
+        TransaccionesBD trscns = new TransaccionesBD();
+        ResultSet rs = trscns.realizarConsulta(query);           
+        Alumno alumno =null;
+          
+        try{
+            if(rs.next()){
+                //idBusqueda=rs.getLong("id");
+               int dni = rs.getInt("dni");
+               String nombre = rs.getString("nombre");
+               String apellido = rs.getString("apellido");
+               LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
-        try {               
-            DefaultTableModel modelo = new DefaultTableModel();
-             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "error al refrescar", "Error",JOptionPane.WARNING_MESSAGE);
-            return; 
-        }  
-    
-    
-    }
-    public ObservableList<Profesor> buscarTodos(){
-           
-            String query = "SELECT * FROM profesor4";
-            TransaccionesBD trscns = new TransaccionesBD(); 
-            ResultSet rs = trscns.realizarConsulta(query);
-            
-            Profesor profesor=null;
-     
-            ObservableList<Profesor> profesores = FXCollections.observableArrayList();
-       
-       try{
-                while(rs.next()){
-                    
-                      Materia materia= new Materia();
-                      String m=rs.getString("materia");
-                      materia.setNombre_Materia(m);
-                      Carrera carrera = new Carrera();
-                      carrera.setNombre_carrera(rs.getString("carrera"));
-                      
-                      profesor=new Profesor();
-                      
-                     // profesor.setId(rs.getLong("id"));
-                      profesor.setDni(rs.getInt("dni"));
-                      profesor.setNombre(rs.getString("nombre"));
-                      profesor.setApellido(rs.getString("apellido"));
-                      profesor.setFecha(rs.getDate("fecha").toLocalDate());
-                      
-                      profesor.setMateria(materia);
-                      profesor.setCarrera(carrera);
-                   
-               /* JOptionPane.showMessageDialog(null,"id :" + profesor.getId() + " nombre:"
-                   + profesor.getNombre() + " apellido: " + profesor.getApellido() +
-                        " materia:" + profesor.getMateria().getNombre_Materia() + " carrera:" +
-                        profesor.getCarrera().getNombre_carrera() + " fecha: " + profesor.getFechaString());*/
-                             
-                   profesores.add(profesor);     
-                                 
-                }  
-                rs.close();
-            }catch(SQLException ex){
+                Materia materia= new Materia();
+                materia.setNombre_Materia(rs.getString("materia"));
+                Carrera carrera = new Carrera();
+                carrera.setNombre_carrera(rs.getString("carrera"));
+                     
+                alumno = new Alumno();
+                alumno .setId(dniBusqueda);
+                alumno.setDni(dni);
+                alumno.setNombre(nombre);
+                alumno.setApellido(apellido);
+                alumno.setMateria(materia);
+                alumno.setCarrera(carrera);
+                alumno.setFecha(LocalDate.EPOCH);                
+                }           
+            }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-       return profesores;
-       } 
-       
+    // JOptionPane.showMessageDialog(null, "saliendo de metodo buscar por id ", "Error",JOptionPane.WARNING_MESSAGE);       
+    return alumno;                                  
+        }
+
+    
+    
 }

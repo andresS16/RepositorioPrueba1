@@ -6,8 +6,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CA6565;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controlador.TablaAlumnoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7A2020;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.TablaAlumno">
    <children>
-      <Button fx:id="btnAlumno" layoutX="280.0" layoutY="162.0" mnemonicParsing="false" onAction="#actionEvent" text="Alumnos" />
+      <VBox layoutX="10.0" layoutY="24.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="textBuscar" prefHeight="25.0" prefWidth="176.0" promptText="Buscar" />
+                  <ChoiceBox fx:id="chcBuscar" prefHeight="25.0" prefWidth="101.0" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarAlumno" prefHeight="25.0" prefWidth="89.0" text="Buscar" />
+                  <TextField fx:id="lblResultado" prefHeight="25.0" prefWidth="86.0" promptText="Resultado" />
+                  <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#refrescar" prefHeight="25.0" prefWidth="89.0" text="Refrescar" />
+                  <Button fx:id="bttNuevoAlumno" mnemonicParsing="false" onAction="#nuevoAlumno" text="Nuevo" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <TableView fx:id="tblAlumnos" layoutX="10.0" layoutY="176.0" onMouseClicked="#seleccionar" prefHeight="390.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <columns>
+            <TableColumn fx:id="colDNI" prefWidth="75.0" text="DNI" />
+            <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="75.0" text="Apellido" />
+            <TableColumn fx:id="colMateria" prefWidth="123.0" text="Materia" />
+            <TableColumn fx:id="colCarrera" prefWidth="105.0" text="Carrera" />
+            <TableColumn fx:id="colFecha" prefWidth="146.0" text="Fecha" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

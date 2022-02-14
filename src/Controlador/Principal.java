@@ -60,9 +60,37 @@ public class Principal implements Initializable {
          Object evento = event.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         
         if(evento.equals(miProfesor)){//se aplica condicional para saber que boton se acciono     
+                      
+            try{
+                FXMLLoader loader= new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/vista/TablaProfesorVista.fxml"));//FormularioLU.fxml
             
-            System.out.println("    ENTRO EN EL IF DE Editar datos");  
+                AnchorPane ventana = (AnchorPane) loader.load();
+                panel.setCenter(ventana);
+                TablaProfesor tblc = loader.getController();                                                             
+               //principal.setScene(scene);
+                   
+             } catch(IOException e){
+                 System.out.println("tratar error"+ e.getMessage());        
+                }
+               
+        }else if(evento.equals(miAlumno)){   
             
+            try{
+                  
+                FXMLLoader loader= new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/vista/TablaAlumno.fxml"));//FormularioLU.fxml
+
+                AnchorPane ventana = (AnchorPane) loader.load();
+                panel.setCenter(ventana);
+                //TablaProfesorVistaController tblc = loader.getController();
+                TablaAlumno tblc = loader.getController();
+                                                                  
+            } catch(IOException e){
+                 System.out.println("tratar error"+ e.getMessage());            
+                  }
+                                          
+          }if(evento.equals(miMateria)){//se aplica condicional para saber que boton se acciono                                      
              try{
                 FXMLLoader loader= new FXMLLoader();
                 loader.setLocation(Main.class.getResource("/vista/TablaProfesorVista.fxml"));//FormularioLU.fxml
@@ -73,15 +101,11 @@ public class Principal implements Initializable {
                //principal.setScene(scene);
                    
              } catch(IOException e){
-                 System.out.println("tratar error"+ e.getMessage());
-        
+                 System.out.println("tratar error"+ e.getMessage());       
          }
                
-        }else if(evento.equals(miAlumno)){      
-            
-              System.out.println("    ENTRO EN EL IF DE ASIGNAR AULA");
-              
-              try{
+        }else if(evento.equals(miCarrera)){                                            
+            try{
                   
                 FXMLLoader loader= new FXMLLoader();
                 loader.setLocation(Main.class.getResource("/vista/TablaAlumno.fxml"));//FormularioLU.fxml
@@ -89,56 +113,12 @@ public class Principal implements Initializable {
                 AnchorPane ventana = (AnchorPane) loader.load();
                 panel.setCenter(ventana);
                 //TablaProfesorVistaController tblc = loader.getController();
-                TablaAlumnoController tblc = loader.getController();
+                TablaAlumno tblc = loader.getController();
                                                                   
-               } catch(IOException e){
-                    System.out.println("tratar error"+ e.getMessage());
-            
-                  }
-                                          
-          }if(evento.equals(miMateria)){//se aplica condicional para saber que boton se acciono     
-            
-            System.out.println("    ENTRO EN EL IF DE Editar datos");  
-            
-             try{
-                FXMLLoader loader= new FXMLLoader();
-                loader.setLocation(Main.class.getResource("/vista/TablaProfesorVista.fxml"));//FormularioLU.fxml
-            
-                AnchorPane ventana = (AnchorPane) loader.load();
-                panel.setCenter(ventana);
-                TablaProfesor tblc = loader.getController();                                                             
-               //principal.setScene(scene);
-                   
-             } catch(IOException e){
-                 System.out.println("tratar error"+ e.getMessage());
-        
-         }
-               
-        }else if(evento.equals(miCarrera)){      
-            
-              System.out.println("    ENTRO EN EL IF DE ASIGNAR AULA");
-              
-              try{
-                  
-                FXMLLoader loader= new FXMLLoader();
-                loader.setLocation(Main.class.getResource("/vista/TablaAlumno.fxml"));//FormularioLU.fxml
-
-                AnchorPane ventana = (AnchorPane) loader.load();
-                panel.setCenter(ventana);
-                //TablaProfesorVistaController tblc = loader.getController();
-                TablaAlumnoController tblc = loader.getController();
-                                                                  
-               } catch(IOException e){
-                    System.out.println("tratar error"+ e.getMessage());
-            
-                  }
-                                          
-          }//
-        
-        
+             }catch(IOException e){
+                    System.out.println("tratar error"+ e.getMessage());           
+               }                                          
+          }             
     }
-
-
    
-    
 }
