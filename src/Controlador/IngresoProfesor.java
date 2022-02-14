@@ -114,18 +114,15 @@ public class IngresoProfesor implements Initializable {
     }
 
     @FXML
-    private void actionEvent(ActionEvent e)  {
-      
-           //JOptionPane.showMessageDialog(null,"Evento sin uso" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
-            Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
+    private void actionEvent(ActionEvent e) {      
+         //JOptionPane.showMessageDialog(null,"Evento sin uso" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
+         Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         
-        if(evento.equals(btnEliminar)){
-            
+        if(evento.equals(btnEliminar)){            
             eliminarProfesor();      
             //JOptionPane.showMessageDialog(null,"llama al metodo eliminar"+ id,"aviso" , JOptionPane.INFORMATION_MESSAGE);  
         
-        }else if(evento.equals(btnModificar)){   
-            
+        }else if(evento.equals(btnModificar)){              
             modificarProfesor();                             
         }       
     }
@@ -141,53 +138,77 @@ public class IngresoProfesor implements Initializable {
          //RepoProfesor rep = new RepoProfesor();     
          long id ; //Long.parseLong(this.txtId.getText())   
          //id=rep.id_incrementable();
-         id=ip.id_incrementable();
-         
+         id=ip.id_incrementable();         
        
-         String bandera =this.txtDNI.getText();                 
+         String bandera =this.txtDNI.getText(); 
+         boolean isNumerico = bandera.chars().allMatch( Character::isDigit ); 
+         
+         
          String nombre = this.txtNombre.getText(); 
+         
          String apellido =this.txtApellido.getText(); 
+          
          Materia materia= new Materia();
          Carrera carrera = new Carrera();      
-         LocalDate fecha = this.dateFecha.getValue();  
-         
+         LocalDate fecha = this.dateFecha.getValue(); 
+                      
         if(bandera.equals("") || nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
-                   this.comboCarrera.getValue()==null || fecha== null ){
-               
+            this.comboCarrera.getValue()==null || fecha== null ){
+            
             JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
             rellenarTablaProfesor();
             return ;
-                    
-        } else if(id >0 ) {                                                
-            p1=tp.buscarProfesorID(id);
-            p.setId(id);
-                                
-            if(p1 !=null && p !=null){                                    
-                 JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                     
-                                     
-             }else if(p1 ==null && p !=null){                                                                                                                                                                                                                             
-                 int dni = Integer.parseInt(this.txtDNI.getText());
-                  p.setId(id); 
-                  p.setDni(dni);                          
-                  p.setNombre(nombre);
-                  p.setApellido(apellido);
-                  materia.setNombre_Materia(comboMateria.getValue().toString());
-                  p.setMateria(materia);
-                  carrera.setNombre_carrera(comboCarrera.getValue().toString());
-                  p.setCarrera(carrera);
-                  p.setFecha(fecha);
-                  //rep.insertar(p); 
-                 ip.insertar(p);
-                                
-                  JOptionPane.showMessageDialog(null,"Se guardo correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
-                  Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                  stage.close();
-                                //return; 
-               }                                                                                                                                                         
-            }                                                                                                                                                    
-             //vaciarCampos();
-             //habilitarCampos()                     
-    }
+            
+         }else if(isNumerico) { 
+             
+            boolean isNumero = false;
+            boolean isLetra = false;
+
+            isNumero = !nombre.matches(".*\\d.*"); // if ternario :contiene un numero
+             // no contiene un numero }
+                 
+            isLetra = !apellido.matches(".*\\d.*"); // contains a number
+             // does not contain a number }
+          
+            if( isNumero != false && isLetra != false ){
+                 if(bandera.length()==8){
+                     int dni= Integer.parseInt(this.txtDNI.getText());
+                        p1=tp.buscarProfesorDNI(dni);
+                        //p.setId(id);
+                        if(p1 !=null ){                                    
+                             JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                     
+
+                         }else {                                                                                                                                                                                                                             
+                             //int dni = Integer.parseInt(this.txtDNI.getText());
+                              p.setId(id); 
+                              p.setDni(dni);                          
+                              p.setNombre(nombre);
+                              p.setApellido(apellido);
+                              materia.setNombre_Materia(comboMateria.getValue().toString());
+                              p.setMateria(materia);
+                              carrera.setNombre_carrera(comboCarrera.getValue().toString());
+                              p.setCarrera(carrera);
+                              p.setFecha(fecha);
+                              //rep.insertar(p); 
+                             ip.insertar(p);
+
+                              JOptionPane.showMessageDialog(null,"Se guardo correctamente" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);   
+                              Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                              stage.close();                               //return; 
+                           }            
+                    }else{
+                         JOptionPane.showMessageDialog(null,"Debe ingresar numero de 8 digitos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+                        }                                            
+              }else{
+                JOptionPane.showMessageDialog(null,"Debe ingresar letras " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+               }
+                             
+         }else{                
+             JOptionPane.showMessageDialog(null,"Debe ingresar numeros " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+               }                                            
+      }
+        
+       
                
     public void traer(Profesor p){
                            
