@@ -91,9 +91,9 @@ public class RepoProfesor {
                    LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                     Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
+                    materia.setNombre(rs.getString("materia"));
                     Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
+                    carrera.setNombre(rs.getString("carrera"));
                      
                    profesor = new Profesor();
                    profesor.setId(idBusqueda);
@@ -132,9 +132,9 @@ public class RepoProfesor {
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                     Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
+                    materia.setNombre(rs.getString("materia"));
                     Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
+                    carrera.setNombre(rs.getString("carrera"));
                      
                     profesor = new Profesor();
                     profesor.setId(idBusqueda);
@@ -173,9 +173,9 @@ public class RepoProfesor {
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                     Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
+                    materia.setNombre(rs.getString("materia"));
                     Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
+                    carrera.setNombre(rs.getString("carrera"));
                      
                     profesor = new Profesor();
                     profesor.setId(idBusqueda);
@@ -213,9 +213,9 @@ public class RepoProfesor {
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                     Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
+                    materia.setNombre(rs.getString("materia"));
                     Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
+                    carrera.setNombre(rs.getString("carrera"));
                      
                     profesor = new Profesor();
                     profesor.setId(idBusqueda);
@@ -249,9 +249,9 @@ public class RepoProfesor {
                     
                       Materia materia= new Materia();
                       String m=rs.getString("materia");
-                      materia.setNombre_Materia(m);
+                      materia.setNombre(m);
                       Carrera carrera = new Carrera();
-                      carrera.setNombre_carrera(rs.getString("carrera"));
+                      carrera.setNombre(rs.getString("carrera"));
                       
                       profesor=new Profesor();
                       

@@ -66,7 +66,7 @@ public class IngresoProfesor implements Initializable {
     /**
      * Initializes the controller class.
      */
-    ArrayList<Carrera> listaCarrera  = new ArrayList<>();
+     ArrayList<Carrera> listaCarrera  = new ArrayList<>();
      ArrayList<Materia> listaMateria  = new ArrayList<>();
     
    
@@ -184,9 +184,9 @@ public class IngresoProfesor implements Initializable {
                               p.setDni(dni);                          
                               p.setNombre(nombre);
                               p.setApellido(apellido);
-                              materia.setNombre_Materia(comboMateria.getValue().toString());
+                              materia.setNombre(comboMateria.getValue().toString());
                               p.setMateria(materia);
-                              carrera.setNombre_carrera(comboCarrera.getValue().toString());
+                              carrera.setNombre(comboCarrera.getValue().toString());
                               p.setCarrera(carrera);
                               p.setFecha(fecha);
                               //rep.insertar(p); 
@@ -283,13 +283,19 @@ public class IngresoProfesor implements Initializable {
     
 
     private void modificarProfesor() {
+        Profesor p= new Profesor();
+         Profesor p1=new Profesor();
+         IngresoProfesor ip= new IngresoProfesor();
+         TablaProfesor tp=new TablaProfesor();
                                                
          String bandera =this.txtDNI.getText();       
          String nombre = this.txtNombre.getText(); 
          String apellido =this.txtApellido.getText(); 
          Materia materia= new Materia();
          Carrera carrera = new Carrera();      
-         LocalDate fecha = this.dateFecha.getValue();  
+         LocalDate fecha = this.dateFecha.getValue(); 
+         boolean isNumerico = bandera.chars().allMatch( Character::isDigit );
+         
          
         if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
                    this.comboCarrera.getValue()==null || fecha== null ){
@@ -298,7 +304,53 @@ public class IngresoProfesor implements Initializable {
             rellenarTablaProfesor();
             return ;
                     
-        } else{
+        } else if(isNumerico) { 
+             
+            boolean isNumero = false;
+            boolean isLetra = false;
+
+            isNumero = !nombre.matches(".*\\d.*"); // if ternario :contiene un numero
+             // no contiene un numero }
+                 
+            isLetra = !apellido.matches(".*\\d.*"); // contains a number
+             // does not contain a number }
+          
+            if( isNumero != false && isLetra != false ){
+                 if(bandera.length()==8){
+                     int dni= Integer.parseInt(this.txtDNI.getText());
+                        p1=tp.buscarProfesorDNI(dni);
+                        //p.setId(id);
+                        if(p1 !=null ){                                    
+                             JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                    
+
+                         }else {                                                                                                                                                                                                                             
+                                                //int dni = Integer.parseInt(this.txtDNI.getText());
+                               String query="UPDATE `profesor4` SET "  
+                               + "`dni`='"+ this.txtDNI.getText()+"',"
+                               + "`nombre`='"+ this.txtNombre.getText()+"',"
+                               + "`apellido`='"+ this.txtApellido.getText()+"',"
+                               + "`materia`='"+ comboMateria.getValue() +"',"
+                               + "`carrera`='"+comboCarrera.getValue()+"',"
+                               + "`fecha`='"+dateFecha.getValue()+"' "
+                               + "WHERE `id`="+ id ;
+
+                               TransaccionesBD trscns = new TransaccionesBD();
+                                boolean exito = trscns.ejecutarQuery(query);
+                               JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                               vaciarCampos();
+                               Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                               stage.close();                                //return; 
+                           }            
+                    }else{
+                         JOptionPane.showMessageDialog(null,"Debe ingresar numero de 8 digitos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+                        }                                            
+              }else{
+                JOptionPane.showMessageDialog(null,"Debe ingresar letras " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+               }
+                             
+         }else{                
+             JOptionPane.showMessageDialog(null,"Debe ingresar numeros " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+               }    /*else{
             
             String query="UPDATE `profesor4` SET "  
             + "`dni`='"+ this.txtDNI.getText()+"',"
@@ -315,7 +367,7 @@ public class IngresoProfesor implements Initializable {
             vaciarCampos();
             Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
             stage.close();                                                    
-          }                                                                                                            
+          } */                                                                                                           
     }
      
     public ArrayList<Carrera> seleCarrera(){
@@ -332,7 +384,7 @@ public class IngresoProfesor implements Initializable {
                   // long idBusqueda=rs.getLong("id");                                                                      
                     carrera = new Carrera();
                     //carrera.setId(rs.getLong("id"));
-                    carrera.setNombre_carrera(rs.getString("nombre"));
+                    carrera.setNombre(rs.getString("nombre"));
                     //System.out.println("la carrera es " + carrera.getNombre_carrera());
                                        
                     lista.add(carrera);                     
@@ -357,7 +409,7 @@ public class IngresoProfesor implements Initializable {
              //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
              // long idBusqueda=rs.getLong("id");                                                                      
                 Materia materia = new Materia();
-                materia.setNombre_Materia(rs.getString("nombre"));
+                materia.setNombre(rs.getString("nombre"));
                 //System.out.println("la materia es " + materia.getNombre_Materia());                                      
                 lista.add(materia);                     
                 }           

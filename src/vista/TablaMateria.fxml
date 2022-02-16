@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7A2020;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.TablaProfesor">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #7A2020;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.TablaMateria">
    <children>
       <VBox layoutY="14.0" AnchorPane.bottomAnchor="-14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
          <children>
@@ -23,14 +22,12 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="tblProfesores" layoutY="166.0" onMouseClicked="#seleccionar" prefHeight="386.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+      <TableView fx:id="tblMateria" layoutY="166.0" onMouseClicked="#seleccionar" prefHeight="386.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
-            <TableColumn fx:id="colDNI" prefWidth="75.0" text="dni" />
-            <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
-            <TableColumn fx:id="colApellido" prefWidth="75.0" text="Apellido" />
-            <TableColumn fx:id="colMateria" prefWidth="123.0" text="Materia" />
-            <TableColumn fx:id="colCarrera" prefWidth="105.0" text="Carrera" />
-            <TableColumn fx:id="colFecha" prefWidth="146.0" text="Fecha" />
+            <TableColumn fx:id="colNombre" prefWidth="112.0" text="Nombre" />
+            <TableColumn fx:id="colCarrera" prefWidth="109.0" text="Carrera" />
+            <TableColumn fx:id="colAño" text="año" />
+            <TableColumn fx:id="colCuatrimestre" text="Cuatrimestre" />
          </columns>
       </TableView>
    </children>

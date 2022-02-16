@@ -2,67 +2,52 @@
 package modelo;
 
 public class Carrera {
-    private int num_carrera;
-    private String nombre_carrera;
-    private String cantidad_materia;
-    private Profesor director;
-    long id;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+  
+    private String nombre;
+    private Materia materia;
+    private int año;
 
     public Carrera() {
     }
 
-    public Carrera(String nombre_carrera) {
-        this.nombre_carrera = nombre_carrera;
-    }
-    
-
-    public Carrera(String nombre_carrera, String cantidad_materia, Profesor director) {
-        this.nombre_carrera = nombre_carrera;
-        this.cantidad_materia = cantidad_materia;
-        this.director = director;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getNombre_carrera() {
-        return nombre_carrera;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setNombre_carrera(String nombre_carrera) {
-        this.nombre_carrera = nombre_carrera;
+    public Materia getMateria() {
+        return materia;
     }
 
-    public String getCantidad_materia() {
-        return cantidad_materia;
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
-    public void setCantidad_materia(String cantidad_materia) {
-        this.cantidad_materia = cantidad_materia;
+    public int getAño() {
+        return año;
     }
 
-    public Profesor getDirector() {
-        return director;
-    }
-
-    public void setDirector(Profesor director) {
-        this.director = director;
+    public void setAño(int año) {
+        this.año = año;
     }
 
     /*@Override
     public String toString() {
-        return "Carrera{" + "num_carrera=" + num_carrera + ", nombre_carrera=" + nombre_carrera + ", cantidad_materia=" + cantidad_materia + ", director=" + director + '}';
+        //return "Carrera{" + "nombre=" + nombre + '}';
+        return nombre ;
     }*/
-     @Override
+ @Override
     public String toString() {
-        //return  nombre_carrera + "("+ num_carrera + ")" ;
-        return this.getNombre_carrera();
+        return  nombre ;
     }
+  
+    
+    
+    
+   
     
     
     

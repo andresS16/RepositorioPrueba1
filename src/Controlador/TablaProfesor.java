@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controlador;
 
 import java.io.IOException;
@@ -83,6 +79,7 @@ public class TablaProfesor implements Initializable {
     @FXML
     private TableColumn<Profesor,Integer> colDNI;
     Profesor profesor; 
+   
        
    
     @Override
@@ -331,9 +328,9 @@ public class TablaProfesor implements Initializable {
             LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
             Materia materia= new Materia();
-            materia.setNombre_Materia(rs.getString("materia"));
+            materia.setNombre(rs.getString("materia"));
             Carrera carrera = new Carrera();
-            carrera.setNombre_carrera(rs.getString("carrera"));
+            carrera.setNombre(rs.getString("carrera"));
                      
             profesor = new Profesor();
             profesor.setId(idBusqueda);
@@ -368,9 +365,9 @@ public class TablaProfesor implements Initializable {
                LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 profesor = new Profesor();
                //profesor.setId(idBusqueda);
@@ -408,9 +405,9 @@ public class TablaProfesor implements Initializable {
                 LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 profesor = new Profesor();
                 profesor.setId(idBusqueda);
@@ -450,9 +447,9 @@ public class TablaProfesor implements Initializable {
                 LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 profesor = new Profesor();
                 profesor.setId(idBusqueda);
@@ -492,9 +489,9 @@ public class TablaProfesor implements Initializable {
                     LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                     Materia materia= new Materia();
-                    materia.setNombre_Materia(rs.getString("materia"));
+                    materia.setNombre(rs.getString("materia"));
                     Carrera carrera = new Carrera();
-                    carrera.setNombre_carrera(rs.getString("carrera"));
+                    carrera.setNombre(rs.getString("carrera"));
                      
                     profesor = new Profesor();
                     profesor.setId(idBusqueda);
@@ -541,9 +538,9 @@ public class TablaProfesor implements Initializable {
                     
                       Materia materia= new Materia();
                       String m=rs.getString("materia");
-                      materia.setNombre_Materia(m);
+                      materia.setNombre(m);
                       Carrera carrera = new Carrera();
-                      carrera.setNombre_carrera(rs.getString("carrera"));
+                      carrera.setNombre(rs.getString("carrera"));
                       
                       profesor=new Profesor();
                       

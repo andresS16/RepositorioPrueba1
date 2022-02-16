@@ -145,9 +145,9 @@ public class TablaAlumno implements Initializable {
             while(rs.next()){                   
                 Materia materia= new Materia();
                 String m=rs.getString("materia");
-                materia.setNombre_Materia(m);
+                materia.setNombre(m);
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));                     
+                carrera.setNombre(rs.getString("carrera"));                     
                 alumno= new Alumno();
                 alumno.setDni(rs.getInt("dni"));
                 alumno.setNombre(rs.getString("nombre"));
@@ -333,9 +333,9 @@ public class TablaAlumno implements Initializable {
             String apellido = rs.getString("apellido");
             LocalDate fecha = rs.getDate("fecha").toLocalDate();        
             Materia materia= new Materia();
-            materia.setNombre_Materia(rs.getString("materia"));
+            materia.setNombre(rs.getString("materia"));
             Carrera carrera = new Carrera();
-            carrera.setNombre_carrera(rs.getString("carrera"));                     
+            carrera.setNombre(rs.getString("carrera"));                     
             alumno = new Alumno();
             alumno .setId(idBusqueda);
             alumno.setDni(dni);
@@ -371,9 +371,9 @@ public class TablaAlumno implements Initializable {
                 String apellido = rs.getString("apellido");
                 LocalDate fecha = rs.getDate("fecha").toLocalDate();        
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 alumno = new Alumno();
                 alumno .setId(idBusqueda);
@@ -412,9 +412,9 @@ public class TablaAlumno implements Initializable {
                 LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 alumno = new Alumno();
                 alumno .setId(idBusqueda);
@@ -453,9 +453,9 @@ public class TablaAlumno implements Initializable {
                 String apellido = rs.getString("apellido");
                 LocalDate fecha = rs.getDate("fecha").toLocalDate();       
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));  
+                carrera.setNombre(rs.getString("carrera"));  
                 
                 alumno = new Alumno();
                 alumno .setId(idBusqueda);
@@ -490,9 +490,9 @@ public class TablaAlumno implements Initializable {
                LocalDate fecha = rs.getDate("fecha").toLocalDate();
         
                 Materia materia= new Materia();
-                materia.setNombre_Materia(rs.getString("materia"));
+                materia.setNombre(rs.getString("materia"));
                 Carrera carrera = new Carrera();
-                carrera.setNombre_carrera(rs.getString("carrera"));
+                carrera.setNombre(rs.getString("carrera"));
                      
                 alumno = new Alumno();
                 alumno .setId(dniBusqueda);

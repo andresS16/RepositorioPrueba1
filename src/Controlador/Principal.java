@@ -93,11 +93,11 @@ public class Principal implements Initializable {
           }if(evento.equals(miMateria)){//se aplica condicional para saber que boton se acciono                                      
              try{
                 FXMLLoader loader= new FXMLLoader();
-                loader.setLocation(Main.class.getResource("/vista/TablaProfesorVista.fxml"));//FormularioLU.fxml
+                loader.setLocation(Main.class.getResource("/vista/TablaMateria.fxml"));//FormularioLU.fxml
             
                 AnchorPane ventana = (AnchorPane) loader.load();
                 panel.setCenter(ventana);
-                TablaProfesor tblc = loader.getController();                                                             
+                TablaMateria tblc = loader.getController();                                                             
                //principal.setScene(scene);
                    
              } catch(IOException e){
@@ -108,12 +108,12 @@ public class Principal implements Initializable {
             try{
                   
                 FXMLLoader loader= new FXMLLoader();
-                loader.setLocation(Main.class.getResource("/vista/TablaAlumno.fxml"));//FormularioLU.fxml
+                loader.setLocation(Main.class.getResource("/vista/TablaCarrera.fxml"));//FormularioLU.fxml
 
                 AnchorPane ventana = (AnchorPane) loader.load();
                 panel.setCenter(ventana);
                 //TablaProfesorVistaController tblc = loader.getController();
-                TablaAlumno tblc = loader.getController();
+                TablaCarrera tblc = loader.getController();
                                                                   
              }catch(IOException e){
                     System.out.println("tratar error"+ e.getMessage());           
