@@ -10,7 +10,8 @@ public class Materia {
     private int numMateria;
     private Carrera carrera;
     private int año;
-    private int cuatrimestre;
+    private String cuatrimestre;
+    private long id;
     
 
     public Materia() {
@@ -48,13 +49,22 @@ public class Materia {
         this.año = año;
     }
 
-    public int getCuatrimestre() {
+    public String getCuatrimestre() {
         return cuatrimestre;
     }
 
-    public void setCuatrimestre(int cuatrimestre) {
+    public void setCuatrimestre(String cuatrimestre) {
         this.cuatrimestre = cuatrimestre;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
 
 @Override
     public String toString() {

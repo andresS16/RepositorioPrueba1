@@ -25,9 +25,9 @@
       <TableView fx:id="tblMateria" layoutY="166.0" onMouseClicked="#seleccionar" prefHeight="386.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="112.0" text="Nombre" />
-            <TableColumn fx:id="colCarrera" prefWidth="109.0" text="Carrera" />
-            <TableColumn fx:id="colAño" text="año" />
-            <TableColumn fx:id="colCuatrimestre" text="Cuatrimestre" />
+            <TableColumn fx:id="colCuatrimestre" prefWidth="117.0" text="Cuatrimestres" />
+            <TableColumn fx:id="colAño" prefWidth="86.0" text="año" />
+            <TableColumn fx:id="colCarrera" prefWidth="113.0" text="Carrera" />
          </columns>
       </TableView>
    </children>

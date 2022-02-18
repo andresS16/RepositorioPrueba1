@@ -33,7 +33,7 @@ import modelo.Profesor;
  * @author Silva
  */
 public class IngresoAlumno implements Initializable {
-    private ObservableList<Profesor> alumnos = FXCollections.observableArrayList();
+    private ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
 
     @FXML
     private TextField txtDNI;
@@ -54,13 +54,15 @@ public class IngresoAlumno implements Initializable {
     @FXML
     private Button btnModificar;
   
-    Long id=null;
+     Long id=null;
     Alumno alumno=null;
-
      ArrayList<Carrera> listaCarrera  = new ArrayList<>();
      ArrayList<Materia> listaMateria  = new ArrayList<>();
+     
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         IngresoAlumno ip = new IngresoAlumno();
         listaMateria = ip.seleMateria();
         listaCarrera= ip.seleCarrera();
@@ -68,18 +70,21 @@ public class IngresoAlumno implements Initializable {
         comboCarrera.getItems().addAll(listaCarrera);
       
     } 
+    
     public void rellenarTablaAlumno(){
         alumnos.clear();
-         RepoProfesor repoProf=new RepoProfesor();
-        ObservableList<Profesor> resultProfesores = repoProf.buscarTodos();
-        alumnos.setAll(resultProfesores);
-        int resultados = resultProfesores.size();//cuantos resultados hay en la lista
+       // RepoProfesor repoProf=new RepoProfesor();
+       TablaAlumno ta = new TablaAlumno();
+       ObservableList<Alumno> resultAlumnos = ta.buscarTodos();
+        
+        alumnos.setAll(resultAlumnos);
+        int resultados = resultAlumnos.size();//cuantos resultados hay en la lista
         //lblResultado.setText("resultado :" +resultados);
     }
      public void vaciarCampos(){
         
         //txtId.setText("");
-         txtNombre.setText("");
+        txtNombre.setText("");
         txtApellido.setText("");
         comboMateria.setValue(null);
         comboCarrera.setValue(null);
@@ -111,7 +116,7 @@ public class IngresoAlumno implements Initializable {
                        this.id = a.getId();
                                                                                                                                  }           
             }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"error en metodo de seleCarrera" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"error en metodo traer alumno" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
     
     }
@@ -157,7 +162,7 @@ public class IngresoAlumno implements Initializable {
         }                                           
     }
       
-       private void modificarAlumno() {
+    private void modificarAlumno() {
            
          Alumno p= new Alumno();
          Alumno p1=new Alumno();
@@ -183,10 +188,8 @@ public class IngresoAlumno implements Initializable {
              
             boolean isNumero = false;
             boolean isLetra = false;
-
             isNumero = !nombre.matches(".*\\d.*"); // if ternario :contiene un numero
-             // no contiene un numero }
-                 
+             // no contiene un numero }                
             isLetra = !apellido.matches(".*\\d.*"); // contains a number
              // does not contain a number }
           
@@ -270,7 +273,7 @@ public class IngresoAlumno implements Initializable {
                
     }
      
-        public ArrayList<Carrera> seleCarrera(){
+    public ArrayList<Carrera> seleCarrera(){
         
         Carrera carrera = new Carrera();
         ArrayList<Carrera> lista  = new ArrayList<>();        
@@ -319,15 +322,11 @@ public class IngresoAlumno implements Initializable {
              }       
         return id;
        }
-         
-          
-    
-
-
+                    
     @FXML
     private void actionEvent(ActionEvent e) {
         
-          Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
+        Object evento = e.getSource();// metodo p/ saber en que nodo se aplico el evento , donde esta posicionado
         
         if(evento.equals(btnEliminar)){
             
@@ -337,10 +336,7 @@ public class IngresoAlumno implements Initializable {
         }else if(evento.equals(btnModificar)){   
             
             modificarAlumno();                             
-        }   
-        
-        
-        
+        }                       
     }
 
     @FXML

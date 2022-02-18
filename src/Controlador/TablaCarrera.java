@@ -49,7 +49,6 @@ public class TablaCarrera implements Initializable {
     private TableColumn<Carrera, String> colNombre;
     @FXML
     private TableColumn<Carrera,Integer> colAño;
-    @FXML
     private TableColumn<Carrera, Materia> colMateria;
     @FXML
     private TableView<Carrera> tblCarrera;
@@ -68,7 +67,7 @@ public class TablaCarrera implements Initializable {
         //colNumMateria.setCellValueFactory(new PropertyValueFactory<>("numMateria"));//cada col. se asigna setvalufactory
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         //colNombre.setCellValueFactory(new PropertyValueFactory<>("carrera"));
-        colMateria.setCellValueFactory(new PropertyValueFactory<>("materia"));
+        //colMateria.setCellValueFactory(new PropertyValueFactory<>("materia"));
         colAño.setCellValueFactory(new PropertyValueFactory<>("año"));
        // colCuatrimestre.setCellValueFactory(new PropertyValueFactory<>("cuatrimestre"));        
         //colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
@@ -124,7 +123,7 @@ public class TablaCarrera implements Initializable {
                       Carrera carrera = new Carrera();
                       
                       carrera.setNombre(rs.getString("nombre"));
-                      materia.setNombre(rs.getString("materia"));
+                     // materia.setNombre(rs.getString("materia"));
                       carrera.setMateria(materia);
                       carrera.setAño(rs.getInt("año"));
                                                                                                                                                                                                                                                                                                                  ;                             

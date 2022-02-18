@@ -350,24 +350,7 @@ public class IngresoProfesor implements Initializable {
                              
          }else{                
              JOptionPane.showMessageDialog(null,"Debe ingresar numeros " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-               }    /*else{
-            
-            String query="UPDATE `profesor4` SET "  
-            + "`dni`='"+ this.txtDNI.getText()+"',"
-            + "`nombre`='"+ this.txtNombre.getText()+"',"
-            + "`apellido`='"+ this.txtApellido.getText()+"',"
-            + "`materia`='"+ comboMateria.getValue() +"',"
-            + "`carrera`='"+comboCarrera.getValue()+"',"
-            + "`fecha`='"+dateFecha.getValue()+"' "
-            + "WHERE `id`="+ id ;
-
-            TransaccionesBD trscns = new TransaccionesBD();
-             boolean exito = trscns.ejecutarQuery(query);
-            JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-            vaciarCampos();
-            Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-            stage.close();                                                    
-          } */                                                                                                           
+               }                                                                                           
     }
      
     public ArrayList<Carrera> seleCarrera(){
