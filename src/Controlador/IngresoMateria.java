@@ -66,7 +66,7 @@ public class IngresoMateria implements Initializable {
         listaCarrera= im.seleCarrera();      
         comboCarrera.getItems().addAll(listaCarrera); 
         //listaCuatrimestre=im.seleCuatrimestre();
-        comboCuatrimestre.getItems().addAll("Primer_cuatrimestre","Segundo_cuatrimestre");
+        comboCuatrimestre.getItems().addAll("Primer cuatrimestre","Segundo cuatrimestre");
         comboCursada.getItems().addAll(1,2,3,4,5);
     }  
     
@@ -87,7 +87,7 @@ public class IngresoMateria implements Initializable {
         comboCarrera.setValue(null); 
     }
     
-      public void traerMateria(Materia m){
+    public void traerMateria(Materia m){
                                   
         if(m !=null){                          
                  //JOptionPane.showMessageDialog(null,"entro al if del metodo traer" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                      
@@ -105,8 +105,8 @@ public class IngresoMateria implements Initializable {
             try{
               if(rs.next()){                   
                      //JOptionPane.showMessageDialog(null, "entro en el if para asignar", "Error",JOptionPane.WARNING_MESSAGE);                                  
-                 m.setId(rs.getLong("id"));
-                 this.id=m.getId();
+                m.setId(rs.getLong("id"));
+                this.id=m.getId();
                                                                                                                                  }           
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error en metodo de seleccion de materia" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -115,24 +115,24 @@ public class IngresoMateria implements Initializable {
           
     private void eliminarMateria() { 
                        
-         String nombre = this.txtNombre.getText(); 
-         TablaMateria tm = new TablaMateria();
-         Materia m= new Materia();      
-         Carrera carrera = new Carrera();                             
+        String nombre = this.txtNombre.getText(); 
+        TablaMateria tm = new TablaMateria();
+        Materia m= new Materia();      
+        Carrera carrera = new Carrera();                             
                                 
         if( nombre.equals("") ||  this.comboCarrera.getValue()== null ||
                    this.comboCuatrimestre.getValue()==null || this.comboCursada.getValue()==null){
                
-            JOptionPane.showMessageDialog(null,"falta seleccionar materia" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+            JOptionPane.showMessageDialog(null,"falta seleccionar campos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
             rellenarTablaMateria();
             return ;
                     
-         } else{                                                                  
+        }else if(id != null){                                                                  
                 int opcion = JOptionPane.showConfirmDialog(null, 
                              "Desea eliminar " + "el registro ? " , "confirmacion" ,JOptionPane.YES_NO_OPTION,2);
 
                 if(opcion== JOptionPane.YES_OPTION  ){
-
+                                                    
                     String query ="DELETE FROM `materia` WHERE `materia`.`nombre` ='" + this.txtNombre.getText()+"' ";// traer() trae id
                     TransaccionesBD trscns = new TransaccionesBD();
                     boolean exito = trscns.ejecutarQuery(query);
@@ -147,49 +147,43 @@ public class IngresoMateria implements Initializable {
                     Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
                     stage.close(); 
                     JOptionPane.showMessageDialog(null,"Operacion cancelada" ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-                 }                                                      
-        }                                           
+                }                                                      
+        }else{
+             JOptionPane.showMessageDialog(null,"Debe seleccionar materia" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+        }                                       
     }
       
     private void modificarMateria() {
                   
-        // IngresoMateria im= new IngresoMateria();
-         TablaMateria tm =new TablaMateria();                                                              
-         String nombre = this.txtNombre.getText();          
-         Materia m;        
-         //System.out.println("nombre"+ " el id es = " + m.getId());
-         
+        IngresoMateria im= new IngresoMateria();
+        TablaMateria tm =new TablaMateria();                                                              
+        String nombre = this.txtNombre.getText();          
+        Materia m ;     
+     
         if( nombre.equals("") || this.comboCuatrimestre.getValue()== null || 
-                this.comboCursada.getValue()== null || this.comboCarrera.getValue()==null ){
+            this.comboCursada.getValue()== null || this.comboCarrera.getValue()==null ){
                
             JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
             rellenarTablaMateria();
             return ;
                     
-        } else{                                      
-                    String query = "UPDATE materia SET nombre = '" 
-                            + this.txtNombre.getText()+"',cuatrimestre = '"
-                            + this.comboCuatrimestre.getValue()+"', año='" 
-                            + this.comboCursada.getValue()+ "', carrera='"
-                            + comboCarrera.getValue()+ "' WHERE id = '"+ id +"' " ;
-                    
-                                                                                                                                                                                                                                                                                                                                                                                    
-                              /*String query= "UPDATE materia SET nombre='" + this.txtNombre.getText() + "',cuatrimestre ='"+ this.comboCuatrimestre.getValue()+"', año='"+this.comboCursada.getValue()+"',carrera='" + this.comboCarrera.getValue() +"' WHERE id='" + materia.getId()+"'";*/
- 
-                              TransaccionesBD trscns = new TransaccionesBD();
-                              boolean exito = trscns.ejecutarQuery(query);
-                              JOptionPane.showMessageDialog(null,"alumno modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-                             // vaciarCampos();
-                              Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                              stage.close();                               
+        }else if (id != null){                                      
+            String query = "UPDATE materia SET nombre = '" 
+                          + this.txtNombre.getText()+"',cuatrimestre = '"
+                          + this.comboCuatrimestre.getValue()+"', año='" 
+                          + this.comboCursada.getValue()+ "', carrera='"
+                          + comboCarrera.getValue()+ "' WHERE id = '"+ id +"' " ;
+                                                                                                                                                                                                                                                                                                                                                                                                           
+            TransaccionesBD trscns = new TransaccionesBD();
+            boolean exito = trscns.ejecutarQuery(query);
+            JOptionPane.showMessageDialog(null,"alumno modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+         // vaciarCampos();
+            Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+            stage.close();                               
                                       
-                    }/*else{
-                         JOptionPane.showMessageDialog(null,"El nombre debe tener al menos 4 caracteres " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-                         
-                        }   */                                         
-             
-        
-                                                                                                                           
+        }else{
+            JOptionPane.showMessageDialog(null,"debe seleccionar materia" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                    
+        }                                                                                                                                                                                    
     }
     
     @FXML
@@ -242,32 +236,32 @@ public class IngresoMateria implements Initializable {
     }
 
     
-     public long id_incrementable(){
+    public long id_incrementable(){
            
-           long id=0;       
-           String query="SELECT MAX(id) FROM materia";              
-           TransaccionesBD trscns = new TransaccionesBD();
-           ResultSet rs = trscns.realizarConsulta(query);
+        long id=0;       
+        String query="SELECT MAX(id) FROM materia";              
+        TransaccionesBD trscns = new TransaccionesBD();
+        ResultSet rs = trscns.realizarConsulta(query);
            
-           try{
-                 while(rs.next()){                                                        
-                     id= rs.getLong(1)+1;
-                 }                                             
-             }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);                     
-             }
-             finally{//clase que cierra la coexion para evitar consumo de memoria
-                 try{
-                     rs.close();
-                 }catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE); 
-                 }                     
-             }
-           
+        try{
+            while(rs.next()){                                                        
+                id= rs.getLong(1)+1;
+            }                                             
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);                     
+        }
+        finally{//clase que cierra la coexion para evitar consumo de memoria
+            try{
+                rs.close();
+            }catch(SQLException ex){
+                 JOptionPane.showMessageDialog(null,"error al buscar id" + ex , "ERROR", JOptionPane.ERROR_MESSAGE); 
+            }                     
+        }
+         
         return id;
        }
     
-      public boolean insertar(Materia materia){
+    public boolean insertar(Materia materia){
          
         String query = "INSERT INTO materia(nombre,cuatrimestre,año,carrera)" 
                 + "VALUES(' "

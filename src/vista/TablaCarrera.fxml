@@ -14,7 +14,7 @@
                <children>
                   <TextField fx:id="textBuscar" prefHeight="25.0" prefWidth="176.0" promptText="Buscar" />
                   <ChoiceBox fx:id="chcBuscar" prefHeight="25.0" prefWidth="101.0" />
-                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarProfesor" prefHeight="25.0" prefWidth="89.0" text="Buscar" />
+                  <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarCarrera" prefHeight="25.0" prefWidth="89.0" text="Buscar" />
                   <TextField fx:id="lblResultado" prefHeight="25.0" prefWidth="86.0" promptText="Resultado" />
                   <Button fx:id="btnRefrescar" mnemonicParsing="false" onAction="#refrescar" prefHeight="25.0" prefWidth="89.0" text="Refrescar" />
                   <Button fx:id="bttNuevo" mnemonicParsing="false" onAction="#nuevo" text="Nuevo" />
@@ -25,7 +25,7 @@
       <TableView fx:id="tblCarrera" layoutY="166.0" onMouseClicked="#seleccionar" prefHeight="386.0" prefWidth="601.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="138.0" text="Nombre" />
-            <TableColumn fx:id="colAño" prefWidth="96.0" text="Duracion" />
+            <TableColumn fx:id="colAño" prefWidth="96.0" text="Cursada" />
          </columns>
       </TableView>
    </children>

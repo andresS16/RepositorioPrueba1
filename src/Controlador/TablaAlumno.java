@@ -224,23 +224,22 @@ public class TablaAlumno implements Initializable {
                     if(textBuscar.getText().isEmpty()){
                          JOptionPane.showMessageDialog(null, "debe ingresar id ", "Error",JOptionPane.WARNING_MESSAGE); 
 
-                         }else if(textBuscar.getText()!=null){
+                        }else if(textBuscar.getText()!=null){
 
-                                if(isNumeric){                        
-                                  id = Long.parseLong(textBuscar.getText());                    
-                                  p=tabla.buscarAlumnoID(id);
+                            if(isNumeric){                        
+                                id = Long.parseLong(textBuscar.getText());                    
+                                p=tabla.buscarAlumnoID(id);
 
-                                    if(p!=null){
-                                       alumnoSeleccion.addAll(tabla.buscarAlumnoID(id)); 
-                                       alumnos.clear();
-                                    }else{
-                                       JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
-                                         } 
-                                   
+                                if(p!=null){
+                                    alumnoSeleccion.addAll(tabla.buscarAlumnoID(id)); 
+                                    alumnos.clear();
                                 }else{
-                                 JOptionPane.showMessageDialog(null, "debe ingresar numeros ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                    JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
+                                         }                                   
+                            }else{
+                                JOptionPane.showMessageDialog(null, "debe ingresar numeros ", "Error",JOptionPane.WARNING_MESSAGE);  
                                       }                                         
-                                }                                                                
+                         }                                                                
                       break;             
                 case "apellido":              
                     String apellidoBusqueda = textBuscar.getText();
@@ -248,22 +247,25 @@ public class TablaAlumno implements Initializable {
                     if(textBuscar.getText().isEmpty()){
                         JOptionPane.showMessageDialog(null, "debe ingresar apellido " , "Error",JOptionPane.WARNING_MESSAGE); 
 
-                    }else if(!tabla.buscarProfeApellido(apellidoBusqueda).isEmpty()){
+                    }else if(!tabla.buscarAlumnoApellido(apellidoBusqueda).isEmpty()){
                          alumnos.clear();
-                         alumnoSeleccion.addAll(tabla.buscarProfeApellido(apellidoBusqueda));                                       
+                         alumnoSeleccion.addAll(tabla.buscarAlumnoApellido(apellidoBusqueda));  
+                         
                     }  else{
-                    JOptionPane.showMessageDialog(null, "no se encontro apellido " , "Error",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "no se encontro apellido " , "Error",JOptionPane.WARNING_MESSAGE);                    
                     }                                      
 
                     break;                 
                 case "materia":
                     String materiaBusqueda = textBuscar.getText();
+                    
                     if(textBuscar.getText().isEmpty()){
                         JOptionPane.showMessageDialog(null, "debe ingresar materia " , "Error",JOptionPane.WARNING_MESSAGE); 
 
-                    }else if(!tabla.buscarProfeMateria(materiaBusqueda).isEmpty()){
+                    }else if(!tabla.buscarAlumnoMateria(materiaBusqueda).isEmpty()){
                         alumnos.clear();
-                        alumnoSeleccion.addAll(tabla.buscarProfeMateria(materiaBusqueda));                                      
+                        alumnoSeleccion.addAll(tabla.buscarAlumnoMateria(materiaBusqueda));  
+                        
                     }  else{
                     JOptionPane.showMessageDialog(null, "no se encontro materia " , "Error",JOptionPane.WARNING_MESSAGE);
                     }
@@ -353,7 +355,7 @@ public class TablaAlumno implements Initializable {
     return alumno;                                  
         }
      
-     public ObservableList<Alumno> buscarProfeApellido(String apellidoBusqueda){
+     public ObservableList<Alumno> buscarAlumnoApellido(String apellidoBusqueda){
         
         //JOptionPane.showMessageDialog(null, "Ingreso en metodo buscarprofeApellido", "Error",JOptionPane.WARNING_MESSAGE);            
         String query = "SELECT * FROM alumno WHERE apellido LIKE '%" + apellidoBusqueda + "%'";           
@@ -392,7 +394,7 @@ public class TablaAlumno implements Initializable {
       return alumnoApellido ;                        
     }
      
-      public ObservableList<Alumno> buscarProfeMateria(String materiaBusqueda){
+      public ObservableList<Alumno> buscarAlumnoMateria(String materiaBusqueda){
             
         String query = "SELECT * FROM alumno WHERE materia LIKE '%" + materiaBusqueda + "%'";
             
@@ -474,7 +476,7 @@ public class TablaAlumno implements Initializable {
             return alumnoCarrera;                        
         }
     
-     public Alumno buscarAlumnoDNI(int dniBusqueda){
+    public Alumno buscarAlumnoDNI(int dniBusqueda){
          
         String query ="SELECT * FROM alumno WHERE dni = " + dniBusqueda;
         TransaccionesBD trscns = new TransaccionesBD();

@@ -136,18 +136,12 @@ public class IngresoProfesor implements Initializable {
          TablaProfesor tp=new TablaProfesor();
          
          //RepoProfesor rep = new RepoProfesor();     
-         long id ; //Long.parseLong(this.txtId.getText())   
-         //id=rep.id_incrementable();
-         id=ip.id_incrementable();         
-       
+         long id ; //Long.parseLong(this.txtId.getText())           
+         id=ip.id_incrementable();               
          String bandera =this.txtDNI.getText(); 
-         boolean isNumerico = bandera.chars().allMatch( Character::isDigit ); 
-         
-         
-         String nombre = this.txtNombre.getText(); 
-         
-         String apellido =this.txtApellido.getText(); 
-          
+         boolean isNumerico = bandera.chars().allMatch( Character::isDigit );         
+         String nombre = this.txtNombre.getText();         
+         String apellido =this.txtApellido.getText();          
          Materia materia= new Materia();
          Carrera carrera = new Carrera();      
          LocalDate fecha = this.dateFecha.getValue(); 
@@ -282,51 +276,40 @@ public class IngresoProfesor implements Initializable {
     }  
     
 
-    private void modificarProfesor() {
-        Profesor p= new Profesor();
-         Profesor p1=new Profesor();
-         IngresoProfesor ip= new IngresoProfesor();
-         TablaProfesor tp=new TablaProfesor();
-                                               
-         String bandera =this.txtDNI.getText();       
-         String nombre = this.txtNombre.getText(); 
-         String apellido =this.txtApellido.getText(); 
-         Materia materia= new Materia();
-         Carrera carrera = new Carrera();      
-         LocalDate fecha = this.dateFecha.getValue(); 
-         boolean isNumerico = bandera.chars().allMatch( Character::isDigit );
-         
-         
-        if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
+ private void modificarProfesor() {
+    Profesor p= new Profesor();
+    Profesor p1=new Profesor();
+    IngresoProfesor ip= new IngresoProfesor();
+    TablaProfesor tp=new TablaProfesor();                                        
+    String bandera =this.txtDNI.getText();       
+    String nombre = this.txtNombre.getText(); 
+    String apellido =this.txtApellido.getText(); 
+    Materia materia= new Materia();
+    Carrera carrera = new Carrera();      
+    LocalDate fecha = this.dateFecha.getValue(); 
+     boolean isNumerico = bandera.chars().allMatch( Character::isDigit );
+                  
+    if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
                    this.comboCarrera.getValue()==null || fecha== null ){
                
-            JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
-            rellenarTablaProfesor();
-            return ;
+        JOptionPane.showMessageDialog(null,"falta llenar los campos" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
+        rellenarTablaProfesor();
+        return ;
                     
-        } else if(isNumerico) { 
-             
-            boolean isNumero = false;
-            boolean isLetra = false;
-
-            isNumero = !nombre.matches(".*\\d.*"); // if ternario :contiene un numero
-             // no contiene un numero }
-                 
-            isLetra = !apellido.matches(".*\\d.*"); // contains a number
-             // does not contain a number }
-          
-            if( isNumero != false && isLetra != false ){
-                 if(bandera.length()==8){
-                     int dni= Integer.parseInt(this.txtDNI.getText());
-                        p1=tp.buscarProfesorDNI(dni);
-                        //p.setId(id);
-                        if(p1 !=null ){                                    
-                             JOptionPane.showMessageDialog(null,"El usuario ya existe" ,"aviso" , JOptionPane.INFORMATION_MESSAGE);                                                                    
-
-                         }else {                                                                                                                                                                                                                             
-                                                //int dni = Integer.parseInt(this.txtDNI.getText());
-                               String query="UPDATE `profesor4` SET "  
-                               + "`dni`='"+ this.txtDNI.getText()+"',"
+    } else if(isNumerico) { 
+        
+        boolean isNumero = false;
+        boolean isLetra = false;
+        isNumero = !nombre.matches(".*\\d.*"); // if ternario :contiene un numero
+             // no contiene un numero }        
+        isLetra = !apellido.matches(".*\\d.*"); // contains a number
+             // does not contain a number }       
+        if( isNumero != false && isLetra != false ){
+            
+            if(bandera.length()==8){
+                                                                                                                                                                                                                                                                                                                                        
+                String query="UPDATE `profesor4` SET "  
+                               + "`dni`='"+ Integer.parseInt(this.txtDNI.getText())+"',"
                                + "`nombre`='"+ this.txtNombre.getText()+"',"
                                + "`apellido`='"+ this.txtApellido.getText()+"',"
                                + "`materia`='"+ comboMateria.getValue() +"',"
@@ -334,23 +317,23 @@ public class IngresoProfesor implements Initializable {
                                + "`fecha`='"+dateFecha.getValue()+"' "
                                + "WHERE `id`="+ id ;
 
-                               TransaccionesBD trscns = new TransaccionesBD();
-                                boolean exito = trscns.ejecutarQuery(query);
-                               JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
-                               vaciarCampos();
-                               Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
-                               stage.close();                                //return; 
-                           }            
-                    }else{
-                         JOptionPane.showMessageDialog(null,"Debe ingresar numero de 8 digitos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-                        }                                            
-              }else{
+                TransaccionesBD trscns = new TransaccionesBD();
+                boolean exito = trscns.ejecutarQuery(query);
+                JOptionPane.showMessageDialog(null,"Profesor modificado " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);
+                vaciarCampos();
+                Stage stage =(Stage) this.btnGuardar.getScene().getWindow();
+                stage.close(); 
+                    //return;                                      
+            }else{
+                JOptionPane.showMessageDialog(null,"Debe ingresar numero de 8 digitos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
+                     }                                            
+        }else{
                 JOptionPane.showMessageDialog(null,"Debe ingresar letras " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
-               }
+            }
                              
-         }else{                
+    }else{                
              JOptionPane.showMessageDialog(null,"Debe ingresar numeros " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-               }                                                                                           
+      }                                                                                           
     }
      
     public ArrayList<Carrera> seleCarrera(){

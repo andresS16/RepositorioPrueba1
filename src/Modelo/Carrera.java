@@ -6,10 +6,12 @@ public class Carrera {
     private String nombre;
     private Materia materia;
     private int año;
+    private long id;
 
     public Carrera() {
     }
 
+  
     public String getNombre() {
         return nombre;
     }
@@ -33,6 +35,15 @@ public class Carrera {
     public void setAño(int año) {
         this.año = año;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
 
     /*@Override
     public String toString() {
