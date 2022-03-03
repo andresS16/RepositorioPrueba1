@@ -47,7 +47,7 @@
                   </MenuButton>
                   <MenuButton mnemonicParsing="false" text="Asignar aula">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem fx:id="miAula" mnemonicParsing="false" onAction="#asignarAula" text="ABM_aula" />
                         <MenuItem mnemonicParsing="false" text="Action 2" />
                      </items>
                      <HBox.margin>

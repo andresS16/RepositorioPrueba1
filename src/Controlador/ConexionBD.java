@@ -32,10 +32,5 @@ public class ConexionBD {
                }
            return link;          
        }
-        
-      
-       
-        
-    
-    
+                           
 }

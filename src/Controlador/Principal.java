@@ -47,6 +47,8 @@ public class Principal implements Initializable {
     private MenuItem miCarrera;
     @FXML
     private MenuButton btnEditarDatos;
+    @FXML
+    private MenuItem miAula;
     
 
 
@@ -119,6 +121,29 @@ public class Principal implements Initializable {
                     System.out.println("tratar error"+ e.getMessage());           
                }                                          
           }             
+    }
+
+    @FXML
+    private void asignarAula(ActionEvent event) {
+         Object evento = event.getSource();
+         
+        if(evento.equals(miAula)){//se aplica condicional para saber que boton se acciono     
+                      
+            try{
+                FXMLLoader loader= new FXMLLoader();
+                loader.setLocation(Main.class.getResource("/vista/TablaAula.fxml"));//FormularioLU.fxml
+            
+                AnchorPane ventana = (AnchorPane) loader.load();
+                panel.setCenter(ventana);
+                TablaAula tblc = loader.getController();                                                             
+               //principal.setScene(scene);
+                   
+            } catch(IOException e){
+                 System.out.println("tratar error"+ e.getMessage());        
+              }
+               
+         }
+        
     }
    
 }

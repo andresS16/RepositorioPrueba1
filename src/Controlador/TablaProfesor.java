@@ -227,11 +227,10 @@ public class TablaProfesor implements Initializable {
                                        profesores.clear();
                                     }else{
                                        JOptionPane.showMessageDialog(null, "no se encontro id ", "Error",JOptionPane.WARNING_MESSAGE);  
-                                         } 
-                                   
+                                    }                                    
                                 }else{
                                  JOptionPane.showMessageDialog(null, "debe ingresar numeros ", "Error",JOptionPane.WARNING_MESSAGE);  
-                                      }                                         
+                                  }                                         
                                 }                                                                
                       break;             
                 case "apellido":              
@@ -307,8 +306,7 @@ public class TablaProfesor implements Initializable {
         int resultado = profeSeleccion.size();
         lblResultado.setText("Resultados " + resultado);  
         
-        }
-                                 
+        }                                 
     }
     
       

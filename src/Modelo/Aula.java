@@ -2,24 +2,38 @@
 package modelo;
 
 public class Aula {
-    private int numero_aula;
+    private long id;
+    private int numAula;
     private int edificio;
     private int capacidad;
     private boolean disponibe=false;
 
+    public Aula() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Aula(int numero_aula, int edificio, int capacidad) {
-        this.numero_aula = numero_aula;
+        this.numAula = numero_aula;
         this.edificio = edificio;
         this.capacidad = capacidad;
     }
 
-    public int getNumero_aula() {
-        return numero_aula;
+    public int getNumAula() {
+        return numAula;
     }
 
-    public void setNumero_aula(int numero_aula) {
-        this.numero_aula = numero_aula;
+    public void setNumAula(int numAula) {
+        this.numAula = numAula;
     }
+
+   
 
     public int getEdificio() {
         return edificio;
@@ -47,7 +61,7 @@ public class Aula {
 
     @Override
     public String toString() {
-        return "Aula{" + "numero_aula=" + numero_aula + ", edificio=" + edificio + ", capacidad=" + capacidad + ", disponibe=" + disponibe + '}';
+        return "Aula{" + "numero_aula=" + numAula  + ", edificio=" + edificio + ", capacidad=" + capacidad + ", disponibe=" + disponibe + '}';
     }
     
      

@@ -167,8 +167,7 @@ public class TablaCarrera implements Initializable {
         
         }
     }
-    
-    
+       
     public ObservableList<Carrera> buscarTodos(){
            
             String query = "SELECT * FROM carrera";

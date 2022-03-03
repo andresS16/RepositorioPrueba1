@@ -105,15 +105,15 @@ public class IngresoAlumno implements Initializable {
             this.dateFecha.setValue(a.getFecha());                          
          }
         
-        String query = "select id from alumno where dni='"+ a.getDni()+"'";
+        String query = "select id_alumno from alumno where dni='"+ a.getDni()+"'";
         
            TransaccionesBD trscns = new TransaccionesBD();
             ResultSet rs = trscns.realizarConsulta(query);
             try{
                 if(rs.next()){                   
                      //JOptionPane.showMessageDialog(null, "entro en el if para asignar", "Error",JOptionPane.WARNING_MESSAGE);                 
-                    a.setId(rs.getLong("id")); 
-                       this.id = a.getId();
+                    a.setId(rs.getLong("id_alumno")); 
+                    this.id = a.getId();
                                                                                                                                  }           
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null,"error en metodo traer alumno" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -121,14 +121,14 @@ public class IngresoAlumno implements Initializable {
     
     }
      
-      private void eliminarAlumno() { 
+    private void eliminarAlumno() { 
         
-         String bandera =this.txtDNI.getText();       
-         String nombre = this.txtNombre.getText(); 
-         String apellido =this.txtApellido.getText(); 
-         Materia materia= new Materia();
-         Carrera carrera = new Carrera();      
-         LocalDate fecha = this.dateFecha.getValue();  
+        String bandera =this.txtDNI.getText();       
+        String nombre = this.txtNombre.getText(); 
+        String apellido =this.txtApellido.getText(); 
+        Materia materia= new Materia();
+        Carrera carrera = new Carrera();      
+        LocalDate fecha = this.dateFecha.getValue();  
          
         if( bandera.equals("")|| nombre.equals("") || apellido.isEmpty() || this.comboMateria.getValue()== null ||
                    this.comboCarrera.getValue()==null || fecha== null ){
@@ -140,11 +140,11 @@ public class IngresoAlumno implements Initializable {
         } else if(id > 0){
             
                 int opcion = JOptionPane.showConfirmDialog(null, 
-                             "Desea eliminar " + "el registro ? " , "confirmacion" ,JOptionPane.YES_NO_OPTION,2);
+                    "Desea eliminar " + "el registro ? " , "confirmacion" ,JOptionPane.YES_NO_OPTION,2);
 
                 if(opcion== JOptionPane.YES_OPTION  ){
 
-                    String query ="DELETE FROM `alumno` WHERE `alumno`.`id` = " + id;// traer() trae id
+                    String query ="DELETE FROM `alumno` WHERE `alumno`.`id_alumno` = " + id;// traer() trae id
                     TransaccionesBD trscns = new TransaccionesBD();
                     boolean exito = trscns.ejecutarQuery(query);
 
@@ -202,7 +202,7 @@ public class IngresoAlumno implements Initializable {
                               + "`materia`='"+ comboMateria.getValue() +"',"
                               + "`carrera`='"+comboCarrera.getValue()+"',"
                               + "`fecha`='"+dateFecha.getValue()+"' "
-                              + "WHERE `id`="+ id ;
+                              + "WHERE `id_alumno`="+ id ;
 
                     TransaccionesBD trscns = new TransaccionesBD();
                     boolean exito = trscns.ejecutarQuery(query);
@@ -212,20 +212,20 @@ public class IngresoAlumno implements Initializable {
                     stage.close();                                                                     
                 }else{
                          JOptionPane.showMessageDialog(null,"Debe ingresar numero de 8 digitos " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
-                        }                                            
+                }                                            
             }else{
                 JOptionPane.showMessageDialog(null,"Debe ingresar letras " ,"aviso" , JOptionPane.INFORMATION_MESSAGE);            
-                }                            
+            }                            
         }else{
            JOptionPane.showMessageDialog(null,"Debe ingresar numeros " ,"aviso" , JOptionPane.INFORMATION_MESSAGE); 
         }                                                                                                  
     }
     
-     public ArrayList<Materia> seleMateria(){
+    public ArrayList<Materia> seleMateria(){
         
         Carrera carrera = new Carrera();
         ArrayList<Materia> lista  = new ArrayList<>();       
-        String query = "select id,nombre FROM materia where 1 ORDER BY nombre ASC;";       
+        String query = "select id_materia,nombre FROM materia where 1 ORDER BY nombre ASC;";       
         TransaccionesBD trscns = new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);
         
@@ -250,7 +250,7 @@ public class IngresoAlumno implements Initializable {
         
         Carrera carrera = new Carrera();
         ArrayList<Carrera> lista  = new ArrayList<>();        
-        String query = "select id,nombre FROM carrera where 1 ORDER BY nombre ASC;";       
+        String query = "select id_carrera,nombre FROM carrera where 1 ORDER BY nombre ASC;";       
         TransaccionesBD trscns = new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);
             
@@ -276,7 +276,7 @@ public class IngresoAlumno implements Initializable {
     public long id_incrementable(){
            
            long id=0;       
-           String query="SELECT MAX(id) FROM alumno";              
+           String query="SELECT MAX(id_alumno) FROM alumno";              
            TransaccionesBD trscns = new TransaccionesBD();
            ResultSet rs = trscns.realizarConsulta(query);
              try{
@@ -390,7 +390,7 @@ public class IngresoAlumno implements Initializable {
     
     public boolean insertar(Alumno alumno){
          
-        String query = "INSERT INTO alumno(id ,dni,nombre,apellido,materia,carrera,fecha)" 
+        String query = "INSERT INTO alumno(id_alumno ,dni,nombre,apellido,materia,carrera,fecha)" 
                 + "VALUES(' "
                 + alumno.getId() 
                 + " ',' " 

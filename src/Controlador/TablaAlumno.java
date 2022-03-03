@@ -322,7 +322,7 @@ public class TablaAlumno implements Initializable {
            
      public Alumno buscarAlumnoID(long idBusqueda){
         
-        String query ="SELECT * FROM alumno WHERE id = " + idBusqueda;
+        String query ="SELECT * FROM alumno WHERE id_alumno = " + idBusqueda;
         TransaccionesBD trscns = new TransaccionesBD();
         ResultSet rs = trscns.realizarConsulta(query);            
         Alumno alumno =null;
@@ -367,7 +367,7 @@ public class TablaAlumno implements Initializable {
         try{
             while(rs.next()){
                      //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
-                long idBusqueda=rs.getLong("id"); 
+                long idBusqueda=rs.getLong("id_alumno"); 
                 int dni = rs.getInt("dni");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
@@ -388,13 +388,13 @@ public class TablaAlumno implements Initializable {
                 alumnoApellido.add(alumno);  
                 }           
            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null,"error al buscar objeto profesor" + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"error al buscar objeto alumno " + ex , "ERROR", JOptionPane.ERROR_MESSAGE);
             }
           
       return alumnoApellido ;                        
     }
      
-      public ObservableList<Alumno> buscarAlumnoMateria(String materiaBusqueda){
+    public ObservableList<Alumno> buscarAlumnoMateria(String materiaBusqueda){
             
         String query = "SELECT * FROM alumno WHERE materia LIKE '%" + materiaBusqueda + "%'";
             
@@ -407,7 +407,7 @@ public class TablaAlumno implements Initializable {
             
             while(rs.next()){
                    // JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
-                long idBusqueda=rs.getLong("id");  
+                long idBusqueda=rs.getLong("id_alumno");  
                 int dni = rs.getInt("dni");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
@@ -449,7 +449,7 @@ public class TablaAlumno implements Initializable {
           try{
             while(rs.next()){
                      //JOptionPane.showMessageDialog(null, "entro en el while ", "Error",JOptionPane.WARNING_MESSAGE);
-                long idBusqueda=rs.getLong("id"); 
+                long idBusqueda=rs.getLong("id_alumno"); 
                 int dni = rs.getInt("dni");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
@@ -510,8 +510,6 @@ public class TablaAlumno implements Initializable {
             }
     // JOptionPane.showMessageDialog(null, "saliendo de metodo buscar por id ", "Error",JOptionPane.WARNING_MESSAGE);       
     return alumno;                                  
-        }
-
-    
+    } 
     
 }
